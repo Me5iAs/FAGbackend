@@ -6,7 +6,7 @@ class conexion {
         $servidor   = "localhost";
         $usuario    = "root"; //aquampe_adm
         $clave      = "123"; //1I}k+OeJt00^
-        $base       = "fag"; //base de datos
+        $base       = "fag"; 
         $link       = mysqli_connect($servidor,$usuario,$clave,$base);        
         
         // configuracion de caracteres UTF8
