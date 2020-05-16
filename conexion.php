@@ -14,6 +14,7 @@ class conexion {
         return $link;
     }
     
+    //fucion cerrar s
     function cerrar ($cnn){ 
         mysqli_close($cnn); 
     }   
