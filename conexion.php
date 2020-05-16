@@ -1,14 +1,15 @@
 <?php 
 class conexion {
-    //conectar
+    //cariale de conexion
     var $cnn;
     function conectar(){
         $servidor   = "localhost";
         $usuario    = "root"; //aquampe_adm
         $clave      = "123"; //1I}k+OeJt00^
-        $base       = "fag";
+        $base       = "fag"; //base de datos
         $link       = mysqli_connect($servidor,$usuario,$clave,$base);        
         
+        // configuracion de caracteres UTF8
         mysqli_query($link,'SET NAMES utf8');
         return $link;
     }
