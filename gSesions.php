@@ -6,7 +6,6 @@ header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 
 require_once("conexion.php");
 $data = json_decode(file_get_contents('php://input'));
-// $data = tipo.  datos, proceimiento
 
 $tipo = $data->tipo;
 $ObjCn = new Conexion();
@@ -36,13 +35,10 @@ if($tipo=="login"){
         }
         $cont++;
     }
-    // $f = mysqli_fetch_array($rs);
-    // $arr = $f[0];
     echo(json_encode($arr));
 
 
 }elseif($tipo=="update"){
-    // echo "call sp_usuarios_update('".$data->Id."','". $data->Nombre."','".$data->Doc."','".$data->Direccion."')";
     $rs = $ObjCn->EjecutarStore("call sp_usuarios_update('".$data->Id."','". $data->Nombre."','".$data->Doc."','".$data->Direccion."','".$data->Referencia."')");
     $cont =0;
     while ($f = mysqli_fetch_array($rs)){
@@ -53,8 +49,6 @@ if($tipo=="login"){
         }
         $cont++;
     }
-    // $f = mysqli_fetch_array($rs);
-    // $arr = $f[0];
     echo(json_encode($arr));
 }elseif($tipo=="UpdatePwd"){
     
@@ -68,8 +62,6 @@ if($tipo=="login"){
         }
         $cont++;
     }
-    // $f = mysqli_fetch_array($rs);
-    // $arr = $f[0];
     echo(json_encode($arr));
 }
 
