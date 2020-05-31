@@ -5,8 +5,10 @@ class conexion {
     function conectar(){
         $servidor   = "localhost";
         $usuario    = "root"; //aquampe_adm
+        $clave      = ""; //1I}k+OeJt00^
         $clave      = "123"; //1I}k+OeJt00^
-        $base       = "fag"; 
+        $base       = "aquam"; 
+        // $base       = "fag"; 
         $link       = mysqli_connect($servidor,$usuario,$clave,$base);        
         
         // configuracion de caracteres UTF8

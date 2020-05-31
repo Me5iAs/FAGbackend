@@ -18,7 +18,10 @@ if(isset($_FILES['imagenPropia'])){
   }
   // utf8_decode("SoluciÃ³n Ãºtil y apaÃ±ada a UTF-8");
   $directorio_final = utf8_decode($directorio_final);
-
+  if(!file_exists($directorio_final)){
+    unlink($directorio_final); // Eliminamos la imagen previa si existe.
+  }
+  
   if(move_uploaded_file($_FILES['imagenPropia']['tmp_name'], $directorio_final)){
 
     $data = array(
