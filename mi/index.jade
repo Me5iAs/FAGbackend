@@ -1,0 +1,210 @@
+﻿<!doctype>
+html(lan="es" ng-app="miapp")
+  head
+    meta(charset="UTF-8")
+    //- meta(name='viewport' content="width=device-width, initial-scale=1.0")
+    meta(name="viewport" content="initial-scale=1.0 , minimum-scale=1.0 , maximum-scale=1.0")
+    title Mercado Iquitos - Busca y Encuentra lo que quieres
+
+  body
+   header
+      nav.navbar.navbar-custom(ng-controller='usuariosCtrl')
+        .container-fluid    
+          .navbar-header
+            button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1', aria-expanded='false')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar            
+            a(href="#")
+              img(src='img/logo-ch.png' style='height:50px; padding: 4px')
+          // Collect the nav links, forms, and other content for toggling
+          #bs-example-navbar-collapse-1.collapse.navbar-collapse
+            //- barra de búsqueda grande
+            form.navbar-form.navbar-left.hidden-sm.hidden-xs(role='search' ng-controller='homeCtrl' ng-submit="Encontrar(criterio)")
+              .input-group.form-group(style="display:inline;")
+                input.form-control(type='text', placeholder='Buscar...'  value='' ng-model='criterio' style='width:430px !important')
+                span.input-group-btn
+                  button.btn.btn-default(type='submit' style='height:34px' ng-click='Encontrar(criterio)')
+                    i.glyphicon.glyphicon-search
+            
+            //- barra de búsqueda movil
+            form.navbar-form.navbar-left.hidden-md.hidden-lg(role='search' ng-controller='homeCtrl' ng-submit="Encontrar(criterio)")
+              .input-group.form-group
+                input.form-control(type='text', placeholder='Buscar' ng-model='criterio' value='')
+                span.input-group-btn
+                  button.btn.btn-default(type='submit' style='height:34px' ng-click='Encontrar(criterio)')
+                    i.glyphicon.glyphicon-search
+
+            ul.nav.navbar-nav.navbar-right(ng-show='!LogIn')
+              li
+                a(href='#' ng-click='$event.preventDefault(); Acceder();')  
+                  i.fa.fa-facebook-square(aria-hidden="true")                  
+                  | Accede con Facebook!
+              
+              li
+                a(href='/#/help') 
+                  i.fa.fa-question-circle(aria-hidden="true")
+                  | Ayuda
+              li
+
+            ul.nav.navbar-nav.navbar-right(ng-show='LogIn')              
+              li.dropdown
+                a.dropdown-toggle(href='#', ng-click='$event.preventDefault()' data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                  //- i.fa.fa-user(aria-hidden="true")
+                  img(ng-src='{{Dir}}' style='height:21px; margin-right:10px')
+                  | {{UsuarioLogueado}}
+                  span.caret
+                ul.dropdown-menu
+                  li
+                    a(href='/#/mis_datos') 
+                      i.fa.fa-user
+                      | Mis Datos
+                  li
+                    a(href='/#/ver_calf/1') 
+                      i.fa.fa-star
+                      | Mi Calificación                    
+                  li(role="separator" class="divider")
+                  li
+                    a(href='/#/mis_ventas') 
+                      i.fa.fa-briefcase
+                      | Mis Ventas
+
+                  li
+                    a(href='/#/mis_compras') 
+                      i.fa.fa-shopping-cart
+                      | Mis Compras
+                  li(role="separator" class="divider")
+                  li
+                    a(href='#' ng-click='$event.preventDefault(); CerrarSesion();')
+                      i.fa.fa-sign-out
+                      | Salir
+              li.dropdown
+                a.dropdown-toggle(href='#', ng-click='$event.preventDefault()' data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false') 
+                  | Notificaciones 
+                  span.badge(Style='background-color:#fff; color: #000' ng-show='Notificaciones.length>0') 5
+                ul.dropdown-menu(ng-show='Notificaciones.length>0')
+                  li(ng-repeat='item in Notificaciones')
+                    a(href='/#/mis_datos')
+                      i.fa.fa-user
+                      | Notificacion 1
+
+              li
+                a(href='#/reg_pub') 
+                  i.fa.fa-shopping-cart(aria-hidden="true")
+                  | Vender
+              li
+                a(href='#/help') 
+                  i.fa.fa-question-circle(aria-hidden="true")
+                  | Ayuda
+    
+  
+  section#cuerpo(ng-view)
+  #fb-root
+  script.
+    // Load the SDK asynchronously
+    (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "http://connect.facebook.net/es_LA/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+    window.fbAsyncInit = function() {
+      var app_id = '220550398321588';
+      window.cs ='83dcb0ff984b55510cbd5f13ae28a62c';
+      window.ai = '220550398321588';
+      FB.init({
+        appId      : app_id,
+        status     : true,
+        cookie     : true, 
+        xfbml      : true, 
+        version    : 'v2.6'
+      });
+    }
+
+  //- css
+  link(rel="stylesheet" type="text/css" href="css/mi.css")
+  link(rel="stylesheet" type="text/css" href="libs/normalize-3.0.2/normalize.css")
+  link(rel="stylesheet" type="text/css" href="libs/bootstrap-3.3.6/css/bootstrap.min.css")
+  link(rel="stylesheet" type="text/css" href="libs/bootstrap-3.3.6/css/bootstrap-theme.min.css")
+  link(rel="stylesheet" type="text/css" href="libs/font-awesome-4.4.0/css/font-awesome.min.css")
+  //- css de upload
+  //- link(rel="stylesheet" type="text/css" href="libs/angular-file-upload/css/UploadCss.css")
+
+  //- css de upload console-sham
+  script(type="text/javascript" src="libs/angular-file-upload/ext/es5-sham.min.js")
+  script(type="text/javascript" src="libs/angular-file-upload/ext/es5-shim.min.js")
+  
+  script(type="text/javascript" src="libs/jquery-2.1.1/jquery.min.js")
+  
+  script(type="text/javascript" src="libs/angular-file-upload/ext/console-sham.min.js")
+
+  script(type="text/javascript" src="libs/bootstrap-3.3.6/js/bootstrap.min.js")
+    
+  //- librerias
+  script(type="text/javascript" src="libs/angular-1.5.0/angular.min.js")    
+  script(type="text/javascript" src="libs/angular-1.5.0/angular-animate.min.js")
+  script(type="text/javascript" src="libs/angular-1.5.0/angular-sanitize.js")
+  script(type="text/javascript" src="libs/angular-1.5.0/angular-touch.min.js")
+  script(type="text/javascript" src="libs/angular-1.5.0/angular-route.min.js")
+  
+  //- js de bootstrap
+  
+  script(type="text/javascript" src="libs/ui-bootstrap-tpls-1.2.4.min.js")
+  script(type="text/javascript" src="libs/angular-file-upload/ext/angular-file-upload.min.js")
+ 
+  //- js graficos
+  script(src='libs/angular-nvd3-1.0.8/bower_components/d3/d3.js')
+  script(src='libs/angular-nvd3-1.0.8/bower_components/nvd3/build/nv.d3.js')
+  
+  script(src='libs/angular-nvd3-1.0.8/bower_components/angular-nvd3/dist/angular-nvd3.js')
+  link(rel='stylesheet', href='libs/angular-nvd3-1.0.8/bower_components/nvd3/build/nv.d3.css')
+
+
+
+  //- controllers
+  script(type='text/javascript' src='js/app.js')
+  script(type='text/javascript' src='js/controllers/usuariosCtrl.js')
+  script(type='text/javascript' src='js/controllers/homeCtrl.js')
+  script(type='text/javascript' src='js/controllers/publicacionCtrl.js')
+  script(type='text/javascript' src='js/controllers/resultadosCtrl.js')
+  script(type='text/javascript' src='js/controllers/comprarCtrl.js')
+  script(type='text/javascript' src='js/controllers/ventasCtrl.js')
+  script(type='text/javascript' src='js/controllers/comprasCtrl.js')
+    
+  script(type='text/javascript' src='js/controllers/buscarCtrl.js')
+  script(type='text/javascript' src='js/controllers/categoriasCtrl.js')
+  script(type='text/javascript' src='js/controllers/tempCtrl.js')
+  script(type='text/javascript' src='js/controllers/calificacionCtrl.js')
+    
+  //- script(type='text/javascript' src='js/controllers/pedidosCtrl.js')
+  //- script(type='text/javascript' src='js/controllers/docCtrl.js')
+  //- script(type='text/javascript' src='js/controllers/asigCtrl.js')
+  //- script(type='text/javascript' src='js/controllers/normaCtrl.js')
+  //- script(type='text/javascript' src='js/controllers/loginCtrl.js')
+  
+  //- templates
+  //- script(type='text/javascript' src='js/controllers/BuscarNormaCtrl.js')
+  //- script(type='text/javascript' src='js/controllers/BuscarVersionesCtrl.js')  
+  //- script(type='text/javascript' src='js/controllers/loginCtrl.js')
+  
+  //- Directives
+  script(type='text/javascript' src='js/directives/gSaltarDirective.js')
+  script(type='text/javascript' src='js/directives/gTablaDirective.js')
+  script(type='text/javascript' src='js/directives/gValidarDirective.js')
+  script(type='text/javascript' src='js/directives/egCuadradoDirective.js')
+  //- script(type='text/javascript' src='js/directives/uploaderModel.js')
+  //- script(type='text/javascript' src='js/directives/ngThumbDirective.js')
+
+  //- servicios
+  script(type='text/javascript' src='js/services/gVentanaService.js')
+  script(type='text/javascript' src='js/services/gMsgboxService.js')
+  script(type='text/javascript' src='js/services/gQueryService.js')
+  script(type='text/javascript' src='js/services/gBuscarService.js')
+  script(type='text/javascript' src='js/services/gSessionService.js')
+  script(type='text/javascript' src='js/services/upload.js')
+  
+    

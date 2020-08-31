@@ -1,0 +1,27 @@
+.panel.panel-default
+  .panel-heading Actualizar Datos
+    i.fa.fa-times(style='float:right; cursor:pointer' ng-click='Cancelar()')
+  .panel-body
+    form.form-horizontal(ng-show='!Clave')
+      .form-group.has-feedback
+        .col-md-12
+          p{{Campo}} actual : {{Dato}}
+          input.form-control.input-md(ng-model='NuevoDato', type='text', placeholder='ingrese nuevo valor')
+      .form-group
+        .col-md-6
+          button#button1id.btn.btn-primary(ng-click='Actualizar()') Actualizar!
+          
+    form.form-horizontal(ng-show='Clave')
+      p Ingrese la nueva clave 2 veces.
+      .form-group
+        label.col-md-4.control-label Nueva Clave
+        .col-md-6
+          input.form-control.input-md(type='password', placeholder='Clave' ng-model='NuevoDato')
+      .form-group
+        label.col-md-4.control-label Re Nueva Clave
+        .col-md-6
+          input.form-control.input-md(type='password', placeholder='Clave' ng-model='Clave2')
+      
+      .form-group
+        .col-md-6.col-md-offset-4
+          button#button1id.btn.btn-primary(ng-disabled='NuevoDato!=Clave2 && Clave2!="null" && Clave2!=undefined' ng-click='Actualizar()') Actualizar!

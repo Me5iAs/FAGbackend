@@ -1,0 +1,59 @@
+style.
+  .carousel-inner img {
+  max-height:405px;
+  }
+  .carousel-inner img {
+  background-color: black !important;
+  background: black!important;
+  }
+
+.panel.panel-default.panel-pub(style='border-top: none;')
+  .panel-body.panelvender
+    form.form-horizontal
+      .container-fluid 
+         
+        .row.col-md-offset-1.col-md-10
+          .panel.panel-default
+            .panel-heading Comprar
+            .panel-body
+              h3 Felicidades has comprado este producto!
+              br
+              br
+              h4 {{Titulo}}
+
+              div.col-md-12(style='max-height: 405px; margin-bottom:30px')
+                uib-carousel(active='active', interval='myInterval', no-wrap='false')
+                  uib-slide(ng-repeat='slide in slides track by slide.id', index='slide.id')
+                    img(ng-src='{{slide.image}}', style='margin:auto;')
+                    .carousel-caption                        
+                      p Foto {{slide.id+1}}
+              br
+              p.text-justify Por favor ponte en contacto con el vendedor para completar la compra, tienes 5 días para calificar al vendedor, si no lo haces automáticamente se considerará que hiciste la compra y que la transacción fue realizada correctamente.
+              p.text-justify Para calificar a una comprador ve al menú de usuario en la opción "Mis Compras" y pulsa en enlace "calificar compra".
+
+              h3 Datos de Contacto.
+
+              form.form-horizontal
+                .form-group.has-feedback
+                  label.col-md-3.control-label Nombre
+                  .col-md-4
+                    label.form-control.input-md {{datos.Nombre}}
+                
+                .form-group.has-feedback
+                  label.col-md-3.control-label Dirección
+                  .col-md-4
+                    label.form-control.input-md {{datos.Direccion}}
+                
+                .form-group.has-feedback
+                  label.col-md-3.control-label Teléfono
+                  .col-md-3
+                    label.form-control.input-md {{datos.Telefono}}
+                
+                .form-group.has-feedback
+                  label.col-md-3.control-label E-mail
+                  .col-md-4
+                    label.form-control.input-md {{datos.Email}}
+  
+                      //- a(href="#" style='font-size:11px') ¿Olvidaste tu clave?
+                    //- button#button2id.btn.btn-danger(ng-click='Cancelar()') Cancelar
+

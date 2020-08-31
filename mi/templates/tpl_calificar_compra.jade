@@ -1,0 +1,38 @@
+style.
+  .alert{
+    margin-bottom: 0px !important;
+    padding: 5px !important;
+    font-size:0.85em;
+
+  }
+//- .panel.panel-default
+//-   .panel-heading Calificar Venta
+.modal-header Calificar Compra
+  i.fa.fa-times(style='float:right; cursor:pointer' ng-click='Cancelar()')
+
+.modal-body(style='padding-bottom:0px')
+  form.form-horizontal(style='margin-bottom:0px')
+    //- concretar transaccion
+    .form-group
+      label.col-md-4.control-label ¿Se concretó la transacción?
+      .col-md-4
+        select.form-control(ng-model='EstadoCompraComprador')
+          option(value='1') Concretado
+          option(value='2') No concretado
+    //- calificar cliente
+    .form-group
+      label.col-md-4.control-label Califica al Cliente
+      .col-md-4
+        select.form-control(ng-model='CalificaComprador')
+          option(value='1') Malo
+          option(value='2') Neutral
+          option(value='3') Bueno
+    //- comentarios sobre el cliente
+    .form-group
+      label.col-md-4.control-label Comentario sobre la transacción
+      .col-md-8
+        textarea#textarea.form-control(ng-model='comentarioComprador') 
+    //- Estado de publicacion
+
+.modal-footer
+  button#button1id.btn.btn-primary(ng-disabled="EstadoCompraComprador==undefined || EstadoCompraComprador=='' || CalificaComprador==undefined || CalificaComprador=='' || comentarioComprador ==undefined || comentarioComprador ==''" ng-click='Registrar()') Calificar!

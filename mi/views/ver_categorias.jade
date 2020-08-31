@@ -1,0 +1,84 @@
+style.
+  @media (max-width: 768px) {
+    .margen {
+      padding: 5px !important;
+    }
+  }
+  @media (min-width: 768px) {
+    .margen {
+      padding: 5px !important;
+    }
+  }
+  @media (min-width: 992px){
+    .margen {
+      padding: 20px !important;
+    }
+  }
+  @media (min-width:  992px) {
+    .margen {
+      padding: 20px !important;
+    }
+  }
+
+  p { margin:0px !important; }
+  
+  .Filtro{
+    background: #f4f4f4;
+    font-size: 12px;
+    padding: 10px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+  }
+  
+  dl {font-weight: bold;}
+  dt {font-weight:normal}
+  dt * {font-weight:normal}
+  em {font-style:normal; font-size:11px; color:#666}
+    
+  .titulo{
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .precio{
+    color: #900;
+    font-size: 16px;
+    font-weight: bold;
+    text-align:right;
+  }
+  .fila{
+    margin-bottom: 6px;
+    line-height: 22px;
+    height: 24px;
+  }
+  .item{
+    border-radius: 4px;
+    background-color: #eee;
+    color: #444;
+    line-height: 22px;
+    padding: 1px 10px;
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 85%;
+    vertical-align: middle;
+  }
+  .item:hover{
+    text-decoration:none;
+    color: #444;
+    background-color: #ddd;
+  }
+
+.container-fluid.margen(style='background-image:url(../img/bg.png)')
+  .row(style='margin-bottom:25px;')
+    h2.text-center(style='color:#666; font-size:32px') ¡Encuentra lo que buscas!
+    p.text-center(style='color:#999; font-size:16px') Hay miles de productos publicados, las mejores marcas y los precios más bajos.
+  .row.col-md-10.col-md-offset-1(style='margin-bottom:25px;')
+    .col-md-4.fila(ng-repeat='item in Categorias')
+      a.item(href='#/search/Cat={{item.Id}}&Est=0&Min=0&Max=0&Key=&Ord=1&pag=1') {{item.Categoria}}
+  .row.col-md-10.col-md-offset-1.text-center
+    img(src='img/todos.png' style='max-width:100%')
+    
+    

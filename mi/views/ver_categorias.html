@@ -1,0 +1,85 @@
+
+<style>
+  @media (max-width: 768px) {
+    .margen {
+      padding: 5px !important;
+    }
+  }
+  @media (min-width: 768px) {
+    .margen {
+      padding: 5px !important;
+    }
+  }
+  @media (min-width: 992px){
+    .margen {
+      padding: 20px !important;
+    }
+  }
+  @media (min-width:  992px) {
+    .margen {
+      padding: 20px !important;
+    }
+  }
+  
+  p { margin:0px !important; }
+  
+  .Filtro{
+    background: #f4f4f4;
+    font-size: 12px;
+    padding: 10px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+  }
+  
+  dl {font-weight: bold;}
+  dt {font-weight:normal}
+  dt * {font-weight:normal}
+  em {font-style:normal; font-size:11px; color:#666}
+    
+  .titulo{
+    font-size: 16px;
+    line-height: 22px;
+  }
+  
+  .precio{
+    color: #900;
+    font-size: 16px;
+    font-weight: bold;
+    text-align:right;
+  }
+  .fila{
+    margin-bottom: 6px;
+    line-height: 22px;
+    height: 24px;
+  }
+  .item{
+    border-radius: 4px;
+    background-color: #eee;
+    color: #444;
+    line-height: 22px;
+    padding: 1px 10px;
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 85%;
+    vertical-align: middle;
+  }
+  .item:hover{
+    text-decoration:none;
+    color: #444;
+    background-color: #ddd;
+  }
+  
+</style>
+<div style="background-image:url(../img/bg.png)" class="container-fluid margen">
+  <div style="margin-bottom:25px;" class="row">
+    <h2 style="color:#666; font-size:32px" class="text-center">¡Encuentra lo que buscas!</h2>
+    <p style="color:#999; font-size:16px" class="text-center">Hay miles de productos publicados, las mejores marcas y los precios más bajos.</p>
+  </div>
+  <div style="margin-bottom:25px;" class="row col-md-10 col-md-offset-1">
+    <div ng-repeat="item in Categorias" class="col-md-4 fila"><a href="#/search/Cat={{item.Id}}&amp;Est=0&amp;Min=0&amp;Max=0&amp;Key=&amp;Ord=1&amp;pag=1" class="item">{{item.Categoria}}</a></div>
+  </div>
+  <div class="row col-md-10 col-md-offset-1 text-center"><img src="img/todos.png" style="max-width:100%"/></div>
+</div>

@@ -1,0 +1,38 @@
+
+<style>
+  h4{
+    max-height: 1em;
+    overflow: auto;
+  }
+  
+  h4 span {
+    font-size:12px;
+    
+    
+  }
+  
+</style>
+<script>
+  $(document).ready(function(){
+    $("#criterio").focus();
+  })
+  
+</script>
+<section>
+  <div class="logoContainer">
+    <div><img src="img/logo-ch.png" class="logoHome"/></div>
+    <div style="margin:0px" class="row">
+      <div class="col-lg-6 col-sm-10 col-lg-offset-3 col-sm-offset-1">       
+        <form ng-submit="Encontrar(criterio)">
+          <div class="input-group">
+            <input id="criterio" type="text" placeholder="..." ng-model="criterio" class="form-control"/><span class="input-group-btn">
+              <button type="button" ng-click="Encontrar(criterio)" class="btn btn-primary">Buscar!</button></span>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div style="margin:10px" class="row">
+      <div class="col-lg-6 col-sm-10 col-lg-offset-3 col-sm-offset-1 text-center"><a href="#/ver_cat">Navegar por Categorias</a></div>
+    </div>
+  </div>
+</section>

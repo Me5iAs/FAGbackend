@@ -1,0 +1,78 @@
+
+<style>
+  .cuadrado{
+    border: 3px solid #217398; 
+    width: 120px; 
+    height:80px;
+    text-align: center;
+    padding: 5px;
+    position:absolute;
+    border-radius: 10px;     
+    box-shadow: 5px 5px 10px 0px #ccc;
+    background: #ffffff; 
+    background: -moz-linear-gradient(-45deg, #ffffff 0%, #e1f5ff 100%); 
+    background: -webkit-linear-gradient(-45deg, #ffffff 0%,#e1f5ff 100%); 
+    background: linear-gradient(135deg, #ffffff 0%,#e1f5ff 100%); Safari7+ 
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e1f5ff',GradientType=1 ); 
+  }
+  .cuadrado table{
+    height: 100%;
+    width: 100%;
+    text-align:center;
+    font-size:12px;
+  }
+  
+  .rombo{
+    border: 3px solid #A6A61D; 
+    width: 50px; 
+    height:50px; 
+    position:absolute; 
+    transform: rotate(45deg);
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #ffffff 0%, #ffffdc 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #ffffff 0%,#ffffdc 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #ffffff 0%,#ffffdc 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffdc',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    box-shadow: 5px 5px 10px 0px #ccc;
+  }
+  .circulo{
+    border: 1px solid; 
+    width: 25px; 
+    height:25px; 
+    position:absolute; 
+    border-radius: 50%;
+  }
+</style>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-1">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <button id="Cuadrado" ng-click="NuevoCirculo()" class="btn btn-default"><i class="fa fa-circle-o"></i></button>
+              </li>
+              <li class="list-group-item">
+                <button id="Cuadrado" ng-click="NuevoCuadrado()" class="btn btn-default"><i class="fa fa-square-o"></i></button>
+              </li>
+              <li class="list-group-item">
+                <button id="Cuadrado" ng-click="NuevoRombo()" class="btn btn-default"><i style="transform:rotate(45deg)" class="fa fa-square-o"></i></button>
+              </li>
+              <li class="list-group-item">
+                <button id="Cuadrado" ng-click="NuevaLinea()" class="btn btn-default"><i style="transform:rotate(45deg)" class="fa fa-square-o"></i></button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12"></div>
+    </div>
+    <div class="col-md-10">
+      <div class="panel panel-default">
+        <div id="contenedor" style="height:400px" class="panel-body">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,120 @@
+
+<style>
+  body {
+    background:url(../img/bg.png)
+  }
+  
+  .flecha_derecha {
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #ececec;    
+    display:inline-block;
+    position: absolute;
+    top: calc(50% - 10px);
+    
+  }
+  
+  .comentario{    
+    background: #ececec; 
+    border-radius: 7px;     
+    display: inline-block;
+    padding-left: 10px;    
+    padding-right: 10px;
+    display:inline-block; 
+    max-width:calc(50% - 10px); 
+    vertical-align:top; 
+    min-height:38px;
+  }
+  
+  .comentario table tr td{
+    padding: 10px 0px;
+    font-size: 13px;
+    text-align:justify;
+    
+  }
+  
+  .Positivo {
+    font-size: 1.5em !important;
+    color: #419641;
+  }
+  
+  .Neutral {
+    font-size: 1.5em !important;
+    color: #eb9316;
+  }
+  
+  .Negativo {
+    font-size: 1.5em !important;
+    color: #c12e2a;
+  }
+  
+  .infoUsuario {
+    display:inline-block; 
+    top:calc(50% - 19px); 
+    position: absolute; 
+    margin-left: 15px; 
+    min-height:38px; 
+    font-size:13px; 
+    color:#999
+  }
+  
+  .avatar{
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px 0px #999;
+  }
+  
+</style>
+<div class="container">
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4>Reputación como vendedor</h4>
+      </div>
+      <div class="panel-body">
+        <p class="text-center"><img ng-src="http://graph.facebook.com/{{Datos.FbId}}/picture?type=large" ng-show="Datos.FbId!=&quot;&quot;" class="avatar"/></p>
+        <p class="text-center"><span>{{Datos.Usuario}} ({{Datos.Totales}})</span></p>
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div role="group" aria-label="..." class="btn-group btn-group-justified">
+              <div role="group" class="btn-group">
+                <button type="button" ng-click="CargarArray(0)" class="btn btn-primary"> <i class="fa fa-star"></i><span class="hidden-sm hidden-xs">Todas </span><span class="badge">{{Datos.Totales}}</span></button>
+              </div>
+              <div role="group" class="btn-group">
+                <button type="button" ng-click="CargarArray(1)" class="btn btn-success"> <i class="fa fa-plus-circle"></i><span class="hidden-sm hidden-xs">Positivas </span><span class="badge">{{Datos.Positivos}}</span></button>
+              </div>
+              <div role="group" class="btn-group">
+                <button type="button" ng-click="CargarArray(2)" class="btn btn-warning"> <i class="fa fa-dot-circle-o"></i><span class="hidden-sm hidden-xs">Neutrales </span><span class="badge">{{Datos.Neutrales}}</span></button>
+              </div>
+              <div role="group" class="btn-group">
+                <button type="button" ng-click="CargarArray(3)" class="btn btn-danger"> <i class="fa fa-minus-circle"> </i><span class="hidden-sm hidden-xs">Negativas </span><span class="badge">{{Datos.Negativos}}</span></button>
+              </div>
+            </div>
+            <div style="margin-top:10px" class="progress">        
+              <div role="progressbar" aria-valuenow="{{Datos.pNeg}}" aria-valuemin="0" aria-valuemax="100" style="width: {{Datos.pNeg}}%;" class="progress-bar progress-bar-danger progress-bar-striped active">{{Datos.pNeg}}%</div>
+              <div role="progressbar" aria-valuenow="{{Datos.pNeu}}" aria-valuemin="0" aria-valuemax="100" style="width: {{Datos.pNeu}}%;" class="progress-bar progress-bar-warning progress-bar-striped active">{{Datos.pNeu}}%</div>
+              <div role="progressbar" aria-valuenow="{{Datos.pPos}}" aria-valuemin="0" aria-valuemax="100" style="width: {{Datos.pPos}}%;" class="progress-bar progress-bar-success progress-bar-striped active">{{Datos.pPos}}%  </div>
+            </div>
+          </div>
+        </div><br/>
+        <h4 class="text-center">{{Datos.Actual}}</h4><br/>
+        <div style="margin-bottom:15px" ng-repeat="item in Activos" class="col-md-10 col-md-offset-1">
+          <div class="row"> 
+            <div class="comentario"> 
+              <table>
+                <tr>
+                  <td><i class="{{item.Calificacion}} fa fa-plus-circle"></i></td>
+                  <td>[{{item.Fecha}}] {{item.ComentarioCliente}}</td>
+                </tr>
+              </table>
+            </div>
+            <div class="flecha_derecha"></div>
+            <div class="infoUsuario">
+              <div><i class="glyphicon glyphicon-user"> </i>{{item.Comprador}} ({{item.ComprasU}})</div>
+              <div><i class="glyphicon glyphicon-shopping-cart"></i>{{item.Titulo}} ({{item.Precio}})</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

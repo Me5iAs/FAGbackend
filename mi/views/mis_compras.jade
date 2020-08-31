@@ -1,0 +1,107 @@
+style.
+  body{
+    background: url(../img/bg.png)
+  }
+  .contenido_tab {
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius: 0px 0px 5px 5px;
+    border-top:none
+  }
+  table{
+    font-size: 12px;
+  }
+
+  .lista{
+    margin-bottom: 4px;
+    line-height: 35px;
+    border-bottom: 1px solid #ccc;
+  }
+
+
+.container
+  .row
+    .panel.panel-default(style='padding:10px')
+      .row(style='padding-right:15px')
+        
+      form.form-horizontal          
+        uib-tabset()
+          uib-tab(index="0" select="CargarPendientes()")
+            uib-tab-heading
+              i.fa.fa-shopping-cart
+              | Mis  Pendientes      
+            
+            //- tabla
+            .contenido_tab
+              .cargando(ng-show="CargandoPendientes" style='text-align:center')
+                img(src='img/cargar.gif')
+              
+              //- tabla
+              .panel.panel-default(ng-show='!CargandoPendientes')
+                .panel-heading
+                  .container-fluid
+                    .row
+                      .col-md-6.col-xs-12.col-sm-12 Publicación                      
+                      .col-md-2.hidden-xs.hidden-sm.text-right Precio
+                      .col-md-2.hidden-xs.hidden-sm.text-center Compra
+                      .col-md-1.hidden-xs.hidden-sm.text-center Vendedor
+                      .col-md-1.hidden-xs.hidden-sm.text-center Calificar
+                .panel-body
+                  .container-fluid
+                    .row.lista(ng-repeat='item in compras_pendientes')
+                      .col-md-6.col-xs-12.col-sm-12 {{$index+1+(PagPendientes.Tamano*PagPendientes.Actual-PagPendientes.Tamano)}}. {{item.Titulo}}                    
+                      .col-md-2.col-xs-6.col-sm-6.text-right {{item.Precio}}
+                      .col-md-2.col-xs-6.col-sm-6.text-center {{item.FechaCompra}}
+                      .col-md-1.col-xs-6.col-sm-6.text-right 
+                        a(href='#' ng-click='$event.preventDefault(); verInfoUsuario(item.IdVendedor)') {{item.Vendedor}}
+                      .col-md-1.col-xs-6.col-sm-6.text-center
+                        a(href='#' ng-click='$event.preventDefault(); Calificar(item.IdVenta, item.Idpub)')
+                          i.fa.fa-check-square-o 
+                          | Calificar
+
+                .panel-footer.text-center(style='padding:0px')
+                  uib-pagination.pagination-sm(boundary-links='true', total-items='compras_pendientes_total.length', ng-model='PagPendientes.Actual', previous-text='‹', next-text='›', first-text='«', last-text='»' force-ellipses='true' max-size='5' items-per-page='PagPendientes.Tamano' ng-change='PagPendientes.Cambiar()' style='margin:10px 0px')
+
+              br
+              h4(ng-show='!CargandoPendientes && compras_pendientes.length==0') No tienes publicaciones abiertas.
+
+          uib-tab(index="1" select="CargarHistorial()")
+            uib-tab-heading
+              i.fa.fa-history
+              | Mi Historial
+            
+            //- tabla
+            .contenido_tab
+              .cargando(ng-show="CargandoHistorial" style='text-align:center')
+                img(src='img/cargar.gif')
+              
+              //- tabla
+              .panel.panel-default(ng-show='!CargandoHistorial')
+                .panel-heading
+                  .container-fluid
+                    .row
+                      .col-md-6.col-xs-12.col-sm-12 Publicación                      
+                      .col-md-2.hidden-xs.hidden-sm.text-right Precio
+                      .col-md-2.hidden-xs.hidden-sm.text-center Compra
+                      .col-md-1.hidden-xs.hidden-sm.text-center Vendedor
+                      .col-md-1.hidden-xs.hidden-sm.text-center Calificación
+                .panel-body
+                  .container-fluid
+                    .row.lista(ng-repeat='item in compras_Historial')
+                      .col-md-6.col-xs-12.col-sm-12 {{$index+1+(PagHistorial.Tamano*PagHistorial.Actual-PagHistorial.Tamano)}}. {{item.Titulo}}                    
+                      .col-md-2.col-xs-6.col-sm-6.text-right {{item.Precio}}
+                      .col-md-2.col-xs-6.col-sm-6.text-center {{item.FechaCompra}}
+                      .col-md-1.col-xs-6.col-sm-6.text-right 
+                        a(href='#' ng-click='$event.preventDefault(); verInfoUsuario(item.IdVendedor)') {{item.Vendedor}}
+                      .col-md-1.col-xs-6.col-sm-6.text-center
+                        a(href='#' ng-click='$event.preventDefault(); verCalificacion(item.IdVenta)')
+                          i.fa.fa-search
+                          | ver
+
+                .panel-footer.text-center(style='padding:0px')
+                  uib-pagination.pagination-sm(boundary-links='true', total-items='compras_Historial_total.length', ng-model='PagHistorial.Actual', previous-text='‹', next-text='›', first-text='«', last-text='»' force-ellipses='true' max-size='5' items-per-page='PagHistorial.Tamano' ng-change='PagPendientes.Cambiar()' style='margin:10px 0px')
+
+              br
+              h4(ng-show='!CargandoAbiertas && publicaciones_activas.length==0') No tienes publicaciones abiertas.
+
+             

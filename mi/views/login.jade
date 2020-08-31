@@ -1,0 +1,28 @@
+section
+  articule
+    .container-fluid
+      .row
+        .panel.panel-default(style='margin: 0px 280px')
+          form.form-horizontal
+            fieldset
+              // Form Name
+              legend
+              // Select Basic
+              .form-group
+                label.col-md-4.control-label(for='selectbasic') Usuario
+                .col-md-4
+                  select#tipo.form-control(name="Usuario" ng-model='Datos.Usuario')
+                    option(ng-repeat='item in Analistas' value='{{item}}') {{item}}   
+
+              // Password input
+              .form-group
+                label.col-md-4.control-label(for='passwordinput') Clave
+                .col-md-4
+                  input#passwordinput.form-control.input-md(name='passwordinput', type='password', placeholder='clave' ng-model='Datos.Clave')
+              // Button
+              .form-group
+                label.col-md-4.control-label(for='singlebutton')
+                .col-md-4
+                  button#singlebutton.btn.btn-primary(name='singlebutton' ng-click='Iniciar()') 
+                    i.glyphicon.glyphicon-user(style='margin-right:5px')
+                    | Iniciar Sesión

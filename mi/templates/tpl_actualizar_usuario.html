@@ -1,0 +1,39 @@
+
+<div class="panel panel-default">
+  <div class="panel-heading">Actualizar Datos<i style="float:right; cursor:pointer" ng-click="Cancelar()" class="fa fa-times"></i></div>
+  <div class="panel-body">
+    <form ng-show="!Clave" class="form-horizontal">
+      <div class="form-group has-feedback">
+        <div class="col-md-12">
+          <p>{{Campo}} actual : {{Dato}}</p>
+          <input ng-model="NuevoDato" type="text" placeholder="ingrese nuevo valor" class="form-control input-md"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-6">
+          <button id="button1id" ng-click="Actualizar()" class="btn btn-primary">Actualizar!</button>
+        </div>
+      </div>
+    </form>
+    <form ng-show="Clave" class="form-horizontal">
+      <p>Ingrese la nueva clave 2 veces.</p>
+      <div class="form-group">
+        <label class="col-md-4 control-label">Nueva Clave</label>
+        <div class="col-md-6">
+          <input type="password" placeholder="Clave" ng-model="NuevoDato" class="form-control input-md"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label">Re Nueva Clave</label>
+        <div class="col-md-6">
+          <input type="password" placeholder="Clave" ng-model="Clave2" class="form-control input-md"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-6 col-md-offset-4">
+          <button id="button1id" ng-disabled="NuevoDato!=Clave2 &amp;&amp; Clave2!=&quot;null&quot; &amp;&amp; Clave2!=undefined" ng-click="Actualizar()" class="btn btn-primary">Actualizar!</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

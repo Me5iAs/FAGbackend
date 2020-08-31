@@ -1,0 +1,17 @@
+
+<div class="panel panel-default">
+  <div class="panel-heading">Accede<i style="float:right; cursor:pointer" ng-click="Cancelar()" class="fa fa-times"></i></div>
+  <div class="panel-body">
+    <form name="FrmLogin" class="form-horizontal">
+      <div class="form-group">
+        <div class="col-md-12 text-center">
+          <p style="font-size:18px">Rapido y sigiloso...</p><img src="img/github_ninja.jpg" width="50%"/>
+        </div>
+        <div class="col-md-12 text-center">
+          <button ng-click="AccederConFB()" ng-hide="cargando" class="btn btn-primary"> <i class="fa fa-facebook-square"></i>Accede con Facebook!</button>
+          <p ng-show="cargando">Espere un momento por favor. </p><img src="img/cargach.gif" ng-show="cargando"/>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

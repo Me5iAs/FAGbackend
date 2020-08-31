@@ -1,0 +1,152 @@
+
+<style>
+  .contenido_tab {
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius: 0px 0px 5px 5px;
+    border-top:none
+  }
+  table{
+    font-size: 12px;
+  }
+  
+  .lista{
+    margin-bottom: 4px;
+    line-height: 35px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  
+</style>
+<div class="container-fluid">
+  <div class="row">
+    <div style="padding:10px" class="panel panel-default col-md-8 col-md-offset-2">
+      <div style="padding-right:15px" class="row"><a style="float:right" href="/#/reg_pub" class="btn btn-success btn-xs"> <i class="fa fa-shopping-cart"></i>Nueva Publicación</a></div>
+      <form class="form-horizontal">         
+        <uib-tabset>
+          <uib-tab index="0" select="CargarAbierto()">
+            <uib-tab-heading><i class="fa fa-folder-open"></i>Abiertas            </uib-tab-heading>
+            <div class="contenido_tab">
+              <h3 ng-show="AbiertasGeneral">Publicaciones abiertas</h3>
+              <div ng-show="CargandoAbiertas" style="text-align:center" class="cargando"><img src="img/cargar.gif"/></div>
+              <div ng-hide="CargandoAbiertas || publicaciones_activas_total.length==0" uib-collapse="!AbiertasGeneral" class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-6 col-xs-6 col-sm-6">Publicación  {{CargandoAbiertas}}</div>
+                      <div class="col-md-2 col-xs-4 col-sm-4 text-right">Precios</div>
+                      <div class="col-md-4 col-xs-2 col-sm-2">
+                        <div class="col-md-3 hidden-xs hidden-sm">Preg. Pend</div>
+                        <div class="col-md-3 hidden-xs hidden-sm">Ventas</div>
+                        <div class="col-md-3 hidden-xs hidden-sm">Detalle</div>
+                        <div class="col-md-3 hidden-xs hidden-sm">Detener                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div ng-hide="CargandoAbiertas || publicaciones_activas.length ==0" ng-repeat="item in publicaciones_activas" class="row lista">
+                    <div class="col-md-6 col-xs-6 col-sm-6">{{$index+1+(PagAbiertas.Tamano*PagAbiertas.Actual-PagAbiertas.Tamano)}}. <a href="#/ver_pub/{{item.Id}}">{{item.Titulo}}</a></div>
+                    <div class="col-md-2 col-xs-4 col-sm-4 text-right">{{item.Precio}}</div>
+                    <div style="padding:0px" class="col-md-4 col-xs-2 col-sm-2">
+                      <div class="col-md-3 hidden-xs hidden-sm text-center">{{item.Preguntas_pend}}</div>
+                      <div class="col-md-3 hidden-xs hidden-sm text-center">{{item.Interesados}}</div>
+                      <div style="padding:0px" class="col-md-3 col-xs-6"><i style="cursor:pointer" ng-click="ActivasMostrarDetalle(item.Id)" class="glyphicon glyphicon-new-window"></i></div>
+                      <div style="padding:0px" class="col-md-3 col-xs-6"><i style="cursor:pointer" ng-click="DetenerPublicacion(item.Id)" class="glyphicon glyphicon-pause"></i></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-footer text-center">
+                  <uib-pagination boundary-links="true" total-items="publicaciones_activas_total.length" ng-model="PagAbiertas.Actual" previous-text="‹" next-text="›" first-text="«" last-text="»" force-ellipses="true" max-size="5" items-per-page="PagAbiertas.Tamano" ng-change="PagAbiertas.Cambiar()" class="pagination-sm"></uib-pagination>
+                </div>
+              </div><br/>
+              <h4 ng-show="!CargandoAbiertas &amp;&amp; publicaciones_activas.length==0">No tienes publicaciones abiertas.</h4>
+              <div ng-show="CargandoDetalleAbiertas" style="text-align:center" class="cargando"><img src="img/cargar.gif"/></div>
+              <div ng-hide="CargandoDetalleAbiertas || AbiertasGeneral" ng-click="ActivasOcultarDetalle()" style="margin-bottom:10px" class="btn btn-primary btn-xs">Regresar</div>
+              <div ng-hide="CargandoDetalleAbiertas || AbiertasGeneral" class="panel panel-default">
+                <div class="panel-heading">Preguntas pendientes</div>
+                <div class="panel-body">
+                  <p ng-hide="Preguntas_abiertas.length&gt;0">No tiene preguntas pendientes.</p>
+                  <div role="alert" ng-repeat="item in Preguntas_abiertas" style="padding:10px; margin-bottom:10px" class="alert alert-success"><i class="fa fa-question-circle"></i>{{item.Pregunta}}<a style="float:right; margin-left:10px" ng-click="Borrar(item.Id, item.IdPub)" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i><span class="hidden-xs">Borrar!</span></a><a style="float:right" ng-click="Responder(item.Id, item.Pregunta, item.IdPub)" class="btn btn-warning btn-xs"> <i class="fa fa-reply"></i><span class="hidden-xs">Responder!</span></a></div>
+                </div>
+              </div>
+              <div ng-hide="CargandoDetalleAbiertas || AbiertasGeneral" class="panel panel-default">
+                <div class="panel-heading">Interesados en compra.</div>
+                <div class="panel-body">
+                  <p ng-hide="ventas_abiertas.length&gt;0">No tiene preguntas pendientes.</p>
+                  <div ng-repeat="item in ventas_abiertas" style="padding:10px; margin-bottom:0px" class="alert alert-success"><i class="fa fa-shopping-cart"></i>Comprador: <a href="#" ng-click='$event.preventDefault(); verInfoUsuario(item.IdUsuario);' >{{item.Usuario}}</a><a href="#"> </a><span style="font-size:0.9em">({{item.FechaCompra}})</span>
+                    <button style="float:right" ng-click="Calificar(item.Id, item.IdPublicacion)" class="btn btn-primary btn-xs"><i class="fa fa-reply"></i><span class="hidden-xs">Calificar Transacción </span><span class="visible-xs">Calificar                    </span></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </uib-tab>
+          <uib-tab index="1" select="CargarDetenido()">
+            <uib-tab-heading><i class="fa fa-pause"></i>Detenidas</uib-tab-heading>
+            <div class="contenido_tab">
+              <h3 ng-show="AbiertasGeneral">Publicaciones detenidas</h3>
+              <div ng-show="CargandoDetenido" style="text-align:center" class="cargando"><img src="img/cargar.gif"/></div>
+              <div ng-hide="CargandoDetenido || publicaciones_detenidas.length ==0" class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-6 col-xs-6 col-sm-6">Publicación</div>
+                      <div class="col-md-2 col-xs-4 col-sm-4 text-right">Precio</div>
+                      <div class="col-md-4 col-xs-2 col-sm-2">
+                        <div class="col-md-6 hidden-xs hidden-sm text-center">Reactivar</div>
+                        <div class="col-md-6 hidden-xs hidden-sm text-center">Cerrar</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div ng-hide="CargandoDetenido || publicaciones_detenidas.length ==0" ng-repeat="item in publicaciones_detenidas" class="row lista">
+                    <div class="col-md-6 col-xs-6 col-sm-6">{{$index+1+(PagDetenidas.Tamano*PagDetenidas.Actual-PagDetenidas.Tamano)}}. {{item.Titulo}}</div>
+                    <div class="col-md-2 col-xs-4 col-sm-4 text-right">{{item.Precio}}</div>
+                    <div class="col-md-4 col-xs-2 col-sm-2">
+                      <div class="col-md-6 hidden-xs hidden-sm text-center"> <a href="#" ng-click="$event.preventDefault(); CambiarEstCerrado(item.Id,1)" uib-tooltip="Reactivar publicación" tooltip-placement="left"><i class="fa fa-play"></i></a></div>
+                      <div class="col-md-6 hidden-xs hidden-sm text-center"> <a href="#" ng-click="$event.preventDefault(); CambiarEstCerrado(item.Id,2)" uib-tooltip="cerrar pubicación" tooltip-placement="left"><i class="fa fa-exclamation-triangle"></i></a></div>
+                    </div>
+                  </div>
+                </div>
+                <div ng-show="publicaciones_detenidas_total.length&gt;0" class="panel-footer text-center"> 
+                  <uib-pagination boundary-links="true" total-items="publicaciones_detenidas_total.length" ng-model="PagDetenidas.Actual" previous-text="‹" next-text="›" first-text="«" last-text="»" force-ellipses="true" max-size="5" items-per-page="PagDetenidas.Tamano" ng-change="PagDetenidas.Cambiar()" class="pagination-sm"></uib-pagination>
+                </div>
+              </div><br/>
+              <h4 ng-show="!CargandoDetenido &amp;&amp; publicaciones_detenidas.length==0">No tienes publicaciones detenidas.</h4>
+            </div>
+          </uib-tab>
+          <uib-tab index="2" select="CargandoCerradas()">
+            <uib-tab-heading><i class="fa fa-folder"></i>Cerradas       </uib-tab-heading>
+            <div class="contenido_tab">
+              <h3>Publicaciones Cerradas</h3>
+              <div ng-show="CargarCerradas" style="text-align:center" class="cargando">               <img src="img/cargar.gif"/></div>
+              <div ng-hide="CargarCerradas || publicaciones_cerradas.length ==0" class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr class="active">
+                      <th>Titulo</th>
+                      <th>precio</th>
+                      <th>Descripcion</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="item in publicaciones_cerradas">
+                      <td>{{item.Titulo}}</td>
+                      <td>{{item.Precio}}</td>
+                      <td>{{item.Descripcion}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div ng-show="publicaciones_cerradas_total.length&gt;0" class="panel-footer text-center"> 
+                  <uib-pagination boundary-links="true" total-items="publicaciones_cerradas_total.length" ng-model="PagCerradas.Actual" previous-text="‹" next-text="›" first-text="«" last-text="»" force-ellipses="true" max-size="5" items-per-page="PagCerradas.Tamano" ng-change="PagCerradas.Cambiar()" class="pagination-sm"></uib-pagination>
+                </div>
+              </div><br/>
+              <h4 ng-show="!CargarCerradas &amp;&amp; publicaciones_cerradas.length==0">No tienes publicaciones cerradas.</h4>
+            </div>
+          </uib-tab>
+        </uib-tabset>
+      </form>
+    </div>
+  </div>
+</div>

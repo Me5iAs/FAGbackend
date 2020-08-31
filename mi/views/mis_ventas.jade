@@ -1,0 +1,206 @@
+style.
+  .contenido_tab {
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius: 0px 0px 5px 5px;
+    border-top:none
+  }
+  table{
+    font-size: 12px;
+  }
+
+  .lista{
+    margin-bottom: 4px;
+    line-height: 35px;
+    border-bottom: 1px solid #ccc;
+  }
+
+
+.container-fluid
+  .row
+    .panel.panel-default.col-md-8.col-md-offset-2(style='padding:10px')
+      .row(style='padding-right:15px')
+        a.btn.btn-success.btn-xs(style='float:right' href='/#/reg_pub') 
+            i.fa.fa-shopping-cart
+            | Nueva Publicación
+      form.form-horizontal          
+        uib-tabset()
+          uib-tab(index="0" select="CargarAbierto()")
+            uib-tab-heading
+              i.fa.fa-folder-open
+              | Abiertas            
+            
+            //- tabla
+            .contenido_tab
+              h3(ng-show='AbiertasGeneral') Publicaciones abiertas
+              .cargando(ng-show="CargandoAbiertas" style='text-align:center')
+                img(src='img/cargar.gif')
+              
+              //- tabla
+              .panel.panel-default(ng-hide='CargandoAbiertas || publicaciones_activas_total.length==0' uib-collapse='!AbiertasGeneral')
+                .panel-heading
+                  .container-fluid
+                    .row
+                      .col-md-6.col-xs-6.col-sm-6 Publicación  {{CargandoAbiertas}}
+                      .col-md-2.col-xs-4.col-sm-4.text-right Precios
+                      .col-md-4.col-xs-2.col-sm-2
+                        .col-md-3.hidden-xs.hidden-sm Preg. Pend
+                        .col-md-3.hidden-xs.hidden-sm Ventas
+                        .col-md-3.hidden-xs.hidden-sm Detalle
+                        .col-md-3.hidden-xs.hidden-sm Detener                        
+                .panel-body
+                  .row.lista(ng-hide="CargandoAbiertas || publicaciones_activas.length ==0" ng-repeat='item in publicaciones_activas')
+                    .col-md-6.col-xs-6.col-sm-6 {{$index+1+(PagAbiertas.Tamano*PagAbiertas.Actual-PagAbiertas.Tamano)}}. 
+                      a(href='#/ver_pub/{{item.Id}}'){{item.Titulo}}
+                    .col-md-2.col-xs-4.col-sm-4.text-right {{item.Precio}}
+                    .col-md-4.col-xs-2.col-sm-2(style='padding:0px')
+                      .col-md-3.hidden-xs.hidden-sm.text-center {{item.Preguntas_pend}}
+                      .col-md-3.hidden-xs.hidden-sm.text-center {{item.Interesados}}
+                      .col-md-3.col-xs-6(style='padding:0px')
+                        i.glyphicon.glyphicon-new-window(style='cursor:pointer' ng-click='ActivasMostrarDetalle(item.Id)')
+                      .col-md-3.col-xs-6(style='padding:0px')
+                        i.glyphicon.glyphicon-pause(style='cursor:pointer' ng-click='DetenerPublicacion(item.Id)')
+                                                    
+                        
+                .panel-footer.text-center
+                  uib-pagination.pagination-sm(boundary-links='true', total-items='publicaciones_activas_total.length', ng-model='PagAbiertas.Actual', previous-text='‹', next-text='›', first-text='«', last-text='»' force-ellipses='true' max-size='5' items-per-page='PagAbiertas.Tamano' ng-change='PagAbiertas.Cambiar()')
+
+              br
+              h4(ng-show='!CargandoAbiertas && publicaciones_activas.length==0') No tienes publicaciones abiertas.
+
+              .cargando(ng-show="CargandoDetalleAbiertas" style='text-align:center')
+                img(src='img/cargar.gif')
+              
+              //- preguntas pendientes
+              .btn.btn-primary.btn-xs(ng-hide='CargandoDetalleAbiertas || AbiertasGeneral' ng-click='ActivasOcultarDetalle()' style='margin-bottom:10px') Regresar
+              .panel.panel-default(ng-hide='CargandoDetalleAbiertas || AbiertasGeneral')
+                .panel-heading
+                  | Preguntas pendientes
+                .panel-body
+                  p(ng-hide='Preguntas_abiertas.length>0') No tiene preguntas pendientes.
+                  .alert.alert-success(role="alert" ng-repeat='item in Preguntas_abiertas' style='padding:10px; margin-bottom:10px')
+                      i.fa.fa-question-circle
+                      | {{item.Pregunta}}
+                      a.btn.btn-danger.btn-xs(style='float:right; margin-left:10px' ng-click='Borrar(item.Id, item.IdPub)')
+                        i.fa.fa-trash
+                        span.hidden-xs Borrar!
+                      a.btn.btn-warning.btn-xs(style='float:right' ng-click='Responder(item.Id, item.Pregunta, item.IdPub)') 
+                        i.fa.fa-reply
+                        span.hidden-xs Responder!
+
+              //- Interesados
+              
+              .panel.panel-default(ng-hide='CargandoDetalleAbiertas || AbiertasGeneral')
+                .panel-heading
+                  | Interesados en compra.
+                .panel-body
+                  p(ng-hide='ventas_abiertas.length>0') No tiene preguntas pendientes.
+                  .alert.alert-success(ng-repeat="item in ventas_abiertas" style='padding:10px; margin-bottom:0px')
+                      i.fa.fa-shopping-cart
+                      | Comprador: <a href="#" ng-click='$event.preventDefault(); verInfoUsuario(item.IdUsuario);' >{{item.Usuario}}</a>
+                      a(href="#") 
+                      span(style='font-size:0.9em') ({{item.FechaCompra}})
+
+                      button.btn.btn-primary.btn-xs(style='float:right' ng-click='Calificar(item.Id, item.IdPublicacion)')
+                        i.fa.fa-reply
+                        span.hidden-xs Calificar Transacción 
+                        span.visible-xs Calificar                    
+
+    
+          uib-tab(index="1" select="CargarDetenido()")
+            uib-tab-heading
+              i.fa.fa-pause
+              | Detenidas
+
+            //- tabla
+            .contenido_tab
+              h3(ng-show='AbiertasGeneral') Publicaciones detenidas
+              .cargando(ng-show="CargandoDetenido" style='text-align:center')
+                img(src='img/cargar.gif')
+              
+              //- tabla
+              .panel.panel-default(ng-hide="CargandoDetenido || publicaciones_detenidas.length ==0")
+                .panel-heading
+                  .container-fluid
+                    .row
+                      .col-md-6.col-xs-6.col-sm-6 Publicación
+                      .col-md-2.col-xs-4.col-sm-4.text-right Precio
+                      .col-md-4.col-xs-2.col-sm-2
+                        .col-md-6.hidden-xs.hidden-sm.text-center Reactivar
+                        .col-md-6.hidden-xs.hidden-sm.text-center Cerrar
+                        
+                .panel-body
+                  .row.lista(ng-hide="CargandoDetenido || publicaciones_detenidas.length ==0" ng-repeat='item in publicaciones_detenidas')
+                    .col-md-6.col-xs-6.col-sm-6 {{$index+1+(PagDetenidas.Tamano*PagDetenidas.Actual-PagDetenidas.Tamano)}}. {{item.Titulo}}
+                    .col-md-2.col-xs-4.col-sm-4.text-right {{item.Precio}}
+                    .col-md-4.col-xs-2.col-sm-2
+                      .col-md-6.hidden-xs.hidden-sm.text-center 
+                        a(href="#" ng-click='$event.preventDefault(); CambiarEstCerrado(item.Id,1)' uib-tooltip="Reactivar publicación"  tooltip-placement="left")
+                                i.fa.fa-play
+                      .col-md-6.hidden-xs.hidden-sm.text-center 
+                        a(href="#" ng-click='$event.preventDefault(); CambiarEstCerrado(item.Id,2)' uib-tooltip="cerrar pubicación"  tooltip-placement="left")
+                                i.fa.fa-exclamation-triangle
+                      
+                  
+                .panel-footer.text-center(ng-show='publicaciones_detenidas_total.length>0') 
+                  uib-pagination.pagination-sm(boundary-links='true', total-items='publicaciones_detenidas_total.length', ng-model='PagDetenidas.Actual', previous-text='‹', next-text='›', first-text='«', last-text='»' force-ellipses='true' max-size='5' items-per-page='PagDetenidas.Tamano' ng-change='PagDetenidas.Cambiar()')
+              br
+              h4(ng-show='!CargandoDetenido && publicaciones_detenidas.length==0') No tienes publicaciones detenidas.
+
+
+            //- .contenido_tab
+              h3 Publicaciones Detenidas
+              .cargando(ng-show="CargandoDetenido" style='text-align:center')
+                img(src='img/cargar.gif')
+              .table-responsive(ng-hide="CargandoDetenido || publicaciones_detenidas.length ==0")
+                table.table
+                  thead
+                    tr.active
+                      th Titulo
+                      th precio
+                      th Descripcion
+                      th.text-center(colspan=2) Opciones
+                  tbody
+                    tr(ng-repeat='item in publicaciones_detenidas')
+                      td {{item.Titulo}}
+                      td {{item.Precio}}
+                      td {{item.Descripcion}}
+                      td.text-center
+                        a(href="#" ng-click='$event.preventDefault(); CambiarEstCerrado(item.Id,1)' uib-tooltip="Reactivar publicación"  tooltip-placement="left")
+                          i.fa.fa-play
+                      td.text-center
+                        a(href="#" ng-click='$event.preventDefault(); CambiarEstCerrado(item.Id,2)' uib-tooltip="cerrar pubicación"  tooltip-placement="left")
+                          i.fa.fa-exclamation-triangle
+              br
+              h4(ng-show='!CargandoDetenido && publicaciones_detenidas.length==0') No tienes publicaciones detenidas.
+
+              
+          uib-tab(index="2" select="CargandoCerradas()")
+            uib-tab-heading
+              i.fa.fa-folder
+              | Cerradas       
+            .contenido_tab
+              h3 Publicaciones Cerradas
+              .cargando(ng-show="CargarCerradas" style='text-align:center')                
+                img(src='img/cargar.gif')
+              .table-responsive(ng-hide="CargarCerradas || publicaciones_cerradas.length ==0")
+                table.table
+                  thead
+                    tr.active
+                      th Titulo
+                      th precio
+                      th Descripcion
+                  tbody
+                    tr(ng-repeat='item in publicaciones_cerradas')
+                      td {{item.Titulo}}
+                      td {{item.Precio}}
+                      td {{item.Descripcion}}
+                      
+
+
+                .panel-footer.text-center(ng-show='publicaciones_cerradas_total.length>0') 
+                  uib-pagination.pagination-sm(boundary-links='true', total-items='publicaciones_cerradas_total.length', ng-model='PagCerradas.Actual', previous-text='‹', next-text='›', first-text='«', last-text='»' force-ellipses='true' max-size='5' items-per-page='PagCerradas.Tamano' ng-change='PagCerradas.Cambiar()')
+              br
+              h4(ng-show='!CargarCerradas && publicaciones_cerradas.length==0') No tienes publicaciones cerradas.
+
+              

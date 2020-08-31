@@ -1,0 +1,52 @@
+style.
+  body {
+    background-image: url(img/bg.png)
+  }
+  table{
+    font-size:14px !important;
+  }
+
+  .avatar {
+    box-shadow: 0px 0px 5px 5px #ccc;
+    border-radius: 10px;    
+    max-width: 100%;
+  }
+
+  .form-group{
+    margin-bottom: 0px !important
+  }
+
+.modal-header Calificación
+  i.fa.fa-times(style='float:right; cursor:pointer' ng-click='Cancelar()')
+
+.modal-body(style='padding-bottom:0px')
+  .container-fluid
+    .row
+      .col-md-6.col-xs-6.text-center
+        h4 Vendedor
+        img.avatar(ng-src="http://graph.facebook.com/{{Datos.IdFbVendedor}}/picture?type=small")
+        div {{Datos.Vendedor}}
+      .col-md-6.col-xs-6.text-center
+        h4 Comprador
+        img.avatar(ng-src="http://graph.facebook.com/{{Datos.IdFbComprador}}/picture?type=small")
+        div {{Datos.Comprador}}
+    .row(style='margin-top:10px')
+      .panel.panel-default
+        .panel-heading.text-center ¿Se concretó la transacción?
+        .panel-body        
+          .col-md-6.col-xs-6.text-center(style='border-right:1px solid #c4c4c4') {{Datos.ConcretoVendedor}}
+          .col-md-6.col-xs-6.text-center {{Datos.ConcretoComprador}}
+    .row
+      .panel.panel-default
+        .panel-heading.text-center Calificación vendedor / comprador
+        .panel-body
+          .row
+            .col-md-6.col-xs-6.text-center(style='border-right:1px solid #c4c4c4') {{Datos.CalificaVendedor}}
+            .col-md-6.col-xs-6.text-center {{Datos.CalificaComprador}}
+    .row
+      .panel.panel-default
+        .panel-heading.text-center Comentario de la transacción
+        .panel-body
+          .row
+            .col-md-6.col-xs-6.text-center(style='border-right:1px solid #c4c4c4') {{Datos.ComentarioVendedor}}
+            .col-md-6.col-xs-6.text-center {{Datos.comentarioComprador}}

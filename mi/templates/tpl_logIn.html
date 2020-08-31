@@ -1,0 +1,25 @@
+
+<div class="panel panel-default">
+  <div class="panel-heading">Iniciar Sesión<i style="float:right; cursor:pointer" ng-click="Cancelar()" class="fa fa-times"></i></div>
+  <div class="panel-body">
+    <form name="FrmLogin" class="form-horizontal">
+      <div class="form-group has-feedback">
+        <div class="col-md-12">
+          <input id="textinput" ng-model="Usuario" type="text" placeholder="Usuario" required="" class="form-control input-md"/><i style="color:#c3c3c3" class="glyphicon glyphicon-user form-control-feedback"></i>
+        </div>
+      </div>
+      <div class="form-group has-feedback">
+        <div class="col-md-12">
+          <input ng-model="Clave" type="password" placeholder="Clave" required="" class="form-control input-md"/><i style="color:#c3c3c3" class="glyphicon glyphicon-lock form-control-feedback"></i>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-6">
+          <button id="button1id" ng-disabled="!FrmLogin.$valid" ng-click="Iniciar()" class="btn btn-primary">Iniciar Sesión!</button>
+        </div>
+        <div class="col-md-6"><span class="help-block"><a href="#" style="font-size:11px">¿Olvidaste tu clave?</a></span>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

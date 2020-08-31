@@ -1,0 +1,100 @@
+
+<style>
+  .contenido_tab {
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius: 0px 0px 5px 5px;
+    border-top:none;
+  }
+  
+  p {
+    text-align: justify;
+  }
+  
+  uib-accordion * {
+    font-size:12px !important;
+    back-ground-color: #fff;
+  }
+  
+  .panel-default>.panel-heading{
+    padding: 5px !important
+  }
+  
+  
+</style>
+<div class="container-fluid">
+  <div class="row">
+    <div style="padding:10px" class="panel panel-default col-md-8 col-md-offset-2">
+      <div style="padding-right:15px" class="row">
+        <h4 class="text-center">¿Como puedo ayudarte?        </h4>
+      </div>
+      <form class="form-horizontal">         
+        <uib-tabset>
+          <uib-tab index="0">
+            <uib-tab-heading><i class="glyphicon glyphicon-shopping-cart"></i>Comprando </uib-tab-heading>
+            <div class="contenido_tab">         
+              <uib-accordion close-others="true" style="font-size:10px">
+                <uib-accordion-group heading="¿Como buscar?">                 
+                  <p>Para buscar un producto basta con escribir lo que estás buscando en la barra de búsqueda (en la parte superior de la web) y presionar el botón Buscar (la lupa), esto mostrará las publicaciones que coincidan con tu busqueda.</p>
+                  <p>Puedes refinar tu búsqueda a través de los filtros, eligiendo la categoria, el estado del producto buscado y el rango de precios; también puedes ordenar tu búsqueda por precio para que los productos se muestren de menor a mayor precio o viceversa.</p>
+                  <p>Si estás interesado en un producto puedes darle click en la imagen o el título y se abrirá el detalle de la publicación desde la cual podrás interactuar con el vendedor.</p>
+                </uib-accordion-group>
+                <uib-accordion-group heading="¿como elegir a que vendedor comprar?">
+                  <p>La comunidad cuenta con un sistema de calificación, se recomienda comprar a aquellos vendedores que hayan obtenido calificaciones positivas, cuando accedas a una publicación podrás ver la calificación del vendedor, esta calificación indica porcentualmente el número de calificaciones positivas recibidas, si quieres profundizar en estas calificaciones puedes acceder a su muro de calificación para ver el detalle de cada calificación.</p>
+                  <p>Si bien el sistema de calificación es un buen indicador, eso no implica que puedas elegir comprar el producto al vendedor que elijas.</p>
+                </uib-accordion-group>
+                <uib-accordion-group heading="¿como preguntar?">
+                  <p>Para poder hacer una pregunta debes registrarte e iniciar sesión; en la parte inferior de la publicación encontrarás una opción para escribir tu pregunta y pulsa el botón "preguntar".</p>
+                  <p>Una vez que tu pregunta sea respondida lo podrás ver como notificación.</p>
+                </uib-accordion-group>
+                <uib-accordion-group heading="¿Cómo comprar?">
+                  <p>Para comprar un producto accede a la publicación que desees comprar y da click en el botón "Comprar" al hacer esto podrás ver información de contacto del vendedor; luego de ello conctáctate con el vendedor para acordar el lugar de la transacción.</p>
+                  <p>una vez que has dado comprar tienes 15 días para cerrar la transacción, dentro de este tiempo podrás indicar si la compra se ha concretado y calificar al vendedor</p>
+                  <p>Para mas información consulta la pregunta relacionada al sistema de calificación.</p>
+                </uib-accordion-group>
+                <uib-accordion-group heading="¿como pagar?">
+                  <p>La comunidad incentiva la compra-venta presencial, por lo cual el pago siempre se realizará pago contra-entrega, a menos que se acuerde un medio distinto con el vendedor.</p>
+                </uib-accordion-group>
+                <uib-accordion-group heading="¿como recibir el producto?">
+                  <p>La comunidad incentiva la compra-venta presencial, por lo cual el pago usualmente el producto será entregado directamente por el vendedor, a menos que las partes  acuerden algo distinto.</p>
+                </uib-accordion-group>
+                <uib-accordion-group heading="¿como funciona el sistema de calificaciones?">
+                  <p>La comunidad cuenta con un sistema de calificaciones, una vez que hayas dado click en el botón comprar tendrás 15 días para realizar la transacción, dentro de este plazo podrás calificar la transacción como "realizada" o "no realizada"; en cualqueira de los casos podrás calificar al vendedor, como bueno, malo o </p>
+                </uib-accordion-group>
+              </uib-accordion>
+            </div>
+          </uib-tab>
+          <uib-tab index="1">
+            <uib-tab-heading><i class="glyphicon glyphicon-tags"></i>Vendiendo</uib-tab-heading>
+            <div class="contenido_tab">
+              <h3>Publicaciones Detenidas</h3>
+              <div ng-show="CargandoDetenido" style="text-align:center" class="cargando">               <img src="img/cargar.gif"/></div>
+              <div ng-hide="CargandoDetenido || publicaciones_detenidas.length ==0" class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr class="active">
+                      <th>Titulo</th>
+                      <th>precio</th>
+                      <th>Descripcion</th>
+                      <th colspan="2" class="text-center">Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="item in publicaciones_detenidas">
+                      <td>{{item.Titulo}}</td>
+                      <td>{{item.Precio}}</td>
+                      <td>{{item.Descripcion}}</td>
+                      <td class="text-center"><a href="#" ng-click="$event.preventDefault(); CambiarEstCerrado(item.Id,1)" uib-tooltip="Reactivar publicación" tooltip-placement="left"><i class="fa fa-play"></i></a></td>
+                      <td class="text-center"><a href="#" ng-click="$event.preventDefault(); CambiarEstCerrado(item.Id,2)" uib-tooltip="cerrar pubicación" tooltip-placement="left"><i class="fa fa-exclamation-triangle"></i></a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div><br/>
+              <h4 ng-show="!CargandoDetenido &amp;&amp; publicaciones_detenidas.length==0">No tienes publicaciones detenidas.</h4>
+            </div>
+          </uib-tab>
+        </uib-tabset>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+
+<style>
+  .carousel-inner img {
+  max-height:405px;
+  }
+  .carousel-inner img {
+  background-color: black !important;
+  background: black!important;
+  }
+  
+</style>
+<div style="border-top: none;" class="panel panel-default panel-pub">
+  <div class="panel-body panelvender">
+    <form class="form-horizontal">
+      <div class="container-fluid"> 
+        <div class="row col-md-offset-1 col-md-10">
+          <div class="panel panel-default">
+            <div class="panel-heading">Comprar</div>
+            <div class="panel-body">
+              <h3>Felicidades has comprado este producto!</h3><br/><br/>
+              <h4>{{Titulo}}</h4>
+              <div style="max-height: 405px; margin-bottom:30px" class="col-md-12">
+                <uib-carousel active="active" interval="myInterval" no-wrap="false">
+                  <uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id"><img ng-src="{{slide.image}}" style="margin:auto;"/>
+                    <div class="carousel-caption">                       
+                      <p>Foto {{slide.id+1}}</p>
+                    </div>
+                  </uib-slide>
+                </uib-carousel>
+              </div><br/>
+              <p class="text-justify">Por favor ponte en contacto con el vendedor para completar la compra, tienes 5 días para calificar al vendedor, si no lo haces automáticamente se considerará que hiciste la compra y que la transacción fue realizada correctamente.</p>
+              <p class="text-justify">Para calificar a una comprador ve al menú de usuario en la opción "Mis Compras" y pulsa en enlace "calificar compra".</p>
+              <h3>Datos de Contacto.</h3>
+              <form class="form-horizontal">
+                <div class="form-group has-feedback">
+                  <label class="col-md-3 control-label">Nombre</label>
+                  <div class="col-md-4">
+                    <label class="form-control input-md">{{datos.Nombre}}</label>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-md-3 control-label">Dirección</label>
+                  <div class="col-md-4">
+                    <label class="form-control input-md">{{datos.Direccion}}</label>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-md-3 control-label">Teléfono</label>
+                  <div class="col-md-3">
+                    <label class="form-control input-md">{{datos.Telefono}}</label>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-md-3 control-label">E-mail</label>
+                  <div class="col-md-4">
+                    <label class="form-control input-md">{{datos.Email}}
+                    </label>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

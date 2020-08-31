@@ -1,0 +1,71 @@
+style.
+  .cuadrado{
+    border: 3px solid #217398; 
+    width: 120px; 
+    height:80px;
+    text-align: center;
+    padding: 5px;
+    position:absolute;
+    border-radius: 10px;     
+    box-shadow: 5px 5px 10px 0px #ccc;
+    background: #ffffff; 
+    background: -moz-linear-gradient(-45deg, #ffffff 0%, #e1f5ff 100%); 
+    background: -webkit-linear-gradient(-45deg, #ffffff 0%,#e1f5ff 100%); 
+    background: linear-gradient(135deg, #ffffff 0%,#e1f5ff 100%); Safari7+ 
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e1f5ff',GradientType=1 ); 
+  }
+  .cuadrado table{
+    height: 100%;
+    width: 100%;
+    text-align:center;
+    font-size:12px;
+  }
+  
+  .rombo{
+    border: 3px solid #A6A61D; 
+    width: 50px; 
+    height:50px; 
+    position:absolute; 
+    transform: rotate(45deg);
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #ffffff 0%, #ffffdc 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #ffffff 0%,#ffffdc 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #ffffff 0%,#ffffdc 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffdc',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    box-shadow: 5px 5px 10px 0px #ccc;
+  }
+  .circulo{
+    border: 1px solid; 
+    width: 25px; 
+    height:25px; 
+    position:absolute; 
+    border-radius: 50%;
+  }
+.container-fluid
+  .row
+    .col-md-1
+      //- caja de herramientas
+      .container
+        .row
+          .col-md-12
+            ul.list-group
+              li.list-group-item
+                button#Cuadrado.btn.btn-default(ng-click='NuevoCirculo()')
+                  i.fa.fa-circle-o
+              li.list-group-item
+                button#Cuadrado.btn.btn-default(ng-click='NuevoCuadrado()')
+                  i.fa.fa-square-o
+              li.list-group-item
+                button#Cuadrado.btn.btn-default(ng-click='NuevoRombo()')
+                  i.fa.fa-square-o(style='transform:rotate(45deg)')
+              li.list-group-item
+                button#Cuadrado.btn.btn-default(ng-click='NuevaLinea()')
+                  i.fa.fa-square-o(style='transform:rotate(45deg)')
+      .col-md-12
+    .col-md-10
+      .panel.panel-default
+        #contenedor.panel-body(style='height:400px')
+          //- .cuadrado
+
+          //- .cuadrado
+          //- 

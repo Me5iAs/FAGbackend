@@ -1,0 +1,9 @@
+.modal-header Actividad
+  i.fa.fa-times(style='float:right; cursor:pointer' ng-click='Cancelar()')
+
+.modal-body  
+  form
+    .input-group
+      input.form-control(type="text" ng-model='texto')
+      span.input-group-btn
+        button.btn.btn-primary(type="submit" ng-disabled="texto==''" ng-click='Registrar()') Aceptar

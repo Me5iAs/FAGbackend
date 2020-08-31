@@ -1,0 +1,20 @@
+.panel.panel-default
+  .panel-heading Accede
+    i.fa.fa-times(style='float:right; cursor:pointer' ng-click='Cancelar()')
+  .panel-body
+    form.form-horizontal(name='FrmLogin')
+      .form-group
+        .col-md-12.text-center
+          p(style='font-size:18px') Rapido y sigiloso...
+          img(src='img/github_ninja.jpg' width='50%')
+        .col-md-12.text-center
+          //- button#button1id.btn.btn-primary(ng-disabled="!FrmLogin.$valid" ng-click='Registrar()') Registrate!
+          //- span(style='margin: 0px 5px') o
+          
+          button.btn.btn-primary(ng-click='AccederConFB()' ng-hide='cargando') 
+            i.fa.fa-facebook-square
+            | Accede con Facebook!
+          p(ng-show='cargando') Espere un momento por favor. 
+          img(src='img/cargach.gif' ng-show='cargando')
+          //- a(href="#" style='font-size:11px') ¿Olvidaste tu clave?
+          //- button#button2id.btn.btn-danger(ng-click='Cancelar()') Cancelar

@@ -1,0 +1,94 @@
+
+<style>
+  .my-drop-zone { border: dotted 3px lightgray; }
+  .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+  .another-file-over-class { border: dotted 3px green; }
+  html, body { height: 100%; }
+  canvas {
+  background-color: #f3f3f3;
+  -webkit-box-shadow: 3px 3px 3px 0 #e3e3e3;
+  -moz-box-shadow: 3px 3px 3px 0 #e3e3e3;
+  box-shadow: 3px 3px 3px 0 #e3e3e3;
+  border: 1px solid #c3c3c3;
+  height: 100px;
+  margin: 6px 0 0 6px;
+  max-width: 90%;
+  }
+  
+</style>
+<div class="container-fluid">
+  <div class="row col-md-offset-1 col-md-10">
+    <div ng-show="!EnProceso" class="panel panel-default">
+      <div class="panel-heading">Registrar Publicacion</div>
+      <div class="panel-body">
+        <form name="FrmRegistrar" class="form-horizontal">
+          <div class="form-group">
+            <label class="col-md-3 control-label">Título</label>
+            <div class="col-md-5">
+              <input id="titulo" type="text" placeholder="Título" maxlength="50" ng-model="Titulo" name="Titulo" required="required" class="form-control input-md"/><span class="help-block">(50 letras máximo) </span>
+            </div>
+          </div>
+          <div class="form-group form-inline">
+            <label class="col-md-3 control-label">Precio</label>
+            <div class="col-md-4">
+              <select id="moneda" ng-model="Moneda" name="Moneda" required="required" class="form-control">
+                <option value="1">S/</option>
+                <option value="2">$</option>
+              </select>
+              <input id="monto" name="Monto" g-validar="decimal" type="text" placeholder="monto" ng-model="Monto" required="required" class="form-control input-md text-right"/><span class="help-block"> </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Estado</label>
+            <div class="col-md-2">
+              <select id="estado" ng-model="EstadoProducto" name="Estado" required="required" class="form-control">
+                <option value="1">Nuevo</option>
+                <option value="2">Usado</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Categoría</label>
+            <div class="col-md-4">
+              <select id="categoria" ng-model="IdCategoria" name="Categoria" required="required" class="form-control">
+                <option ng-repeat="item in Categorias" value="{{item.Id}}">{{item.Categoria}}                </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Descripción</label>
+            <div class="col-md-8">
+              <div id="descripcion" style="height:150px" contenteditable="true" class="form-control"></div><span class="help-block">(500 letras máximo)</span>
+            </div>
+          </div>
+          <div nv-file-drop="" uploader="uploader" class="form-group">
+            <label class="col-md-3 control-label">Subir imagenes</label>
+            <div class="col-md-8">
+              <input type="file" nv-file-select="" uploader="uploader" multiple=""/>
+              <p>Imagenes Subidas: {{ uploader.queue.length }}</p>
+              <div style="background-color=#a02200" ng-repeat="item in uploader.queue" class="panel panel-default col-md-3">
+                <div class="panel-body">
+                  <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }" style="text-align:center"></div>
+                  <div ng-show="uploader.isHTML5" nowrap="">{{ item.file.size/1024/1024|number:2 }} MB</div>
+                  <div ng-show="uploader.isHTML5">
+                    <div style="margin-bottom: 0; text-align:center" class="progress">
+                      <button type="button" ng-click="item.remove()" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i></button>
+                      <div role="progressbar" ng-style="{ 'width': item.progress + '%' }" class="progress-bar"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8 col-md-offset-3">
+            <button type="button" ng-click="RegistrarPublicacion()" ng-disabled="!uploader.getNotUploadedItems().length || FrmRegistrar.$invalid" class="btn btn-success"><i class="glyphicon glyphicon-upload"></i>Registrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div ng-show="EnProceso" class="panel panel-default">
+      <div style="text-align:center" class="panel-heading">Registrando publicación, espere un momento;</div>
+      <div style="text-align:center" class="panel-body"><img src="img/cargar.gif" style="padding:50px"/></div>
+    </div>
+  </div>
+</div>

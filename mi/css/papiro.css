@@ -1,0 +1,32 @@
+body {
+  font-size: 12px;
+  background: #f3f3f3;
+}
+#cuerpo {
+  background: #fff;
+}
+body p,
+body table,
+body div {
+  font-size: 12px;
+}
+.form-control {
+  font-size: 12px;
+  height: 26px;
+  padding: 3px 6px;
+}
+.btn {
+  font-size: 12px;
+  padding: 3px 6px;
+}
+#cuerpo {
+  margin: 0px 60px 0px 60px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  overflow: auto;
+}
+@media (max-width: 768px) {
+  #cuerpo {
+    margin: 0px 0px 0px 0px;
+  }
+}

@@ -1,0 +1,66 @@
+
+<style>
+  body {
+    background-image: url(img/bg.png)
+  }
+  table{
+    font-size:14px !important;
+  }
+  
+  .avatar {
+    box-shadow: 0px 0px 5px 5px #ccc;
+    border-radius: 10px;    
+    max-width: 100%;
+  }
+  
+  .form-group{
+    margin-bottom: 0px !important
+  }
+  
+</style>
+<div class="modal-header">Calificación<i style="float:right; cursor:pointer" ng-click="Cancelar()" class="fa fa-times"></i></div>
+<div style="padding-bottom:0px" class="modal-body">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 col-xs-6 text-center">
+        <h4>Vendedor</h4><img ng-src="http://graph.facebook.com/{{Datos.IdFbVendedor}}/picture?type=small" class="avatar"/>
+        <div>{{Datos.Vendedor}}</div>
+      </div>
+      <div class="col-md-6 col-xs-6 text-center">
+        <h4>Comprador</h4><img ng-src="http://graph.facebook.com/{{Datos.IdFbComprador}}/picture?type=small" class="avatar"/>
+        <div>{{Datos.Comprador}}</div>
+      </div>
+    </div>
+    <div style="margin-top:10px" class="row">
+      <div class="panel panel-default">
+        <div class="panel-heading text-center">¿Se concretó la transacción?</div>
+        <div class="panel-body">       
+          <div style="border-right:1px solid #c4c4c4" class="col-md-6 col-xs-6 text-center">{{Datos.ConcretoVendedor}}</div>
+          <div class="col-md-6 col-xs-6 text-center">{{Datos.ConcretoComprador}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="panel panel-default">
+        <div class="panel-heading text-center">Calificación vendedor / comprador</div>
+        <div class="panel-body">
+          <div class="row">
+            <div style="border-right:1px solid #c4c4c4" class="col-md-6 col-xs-6 text-center">{{Datos.CalificaVendedor}}</div>
+            <div class="col-md-6 col-xs-6 text-center">{{Datos.CalificaComprador}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="panel panel-default">
+        <div class="panel-heading text-center">Comentario de la transacción</div>
+        <div class="panel-body">
+          <div class="row">
+            <div style="border-right:1px solid #c4c4c4" class="col-md-6 col-xs-6 text-center">{{Datos.ComentarioVendedor}}</div>
+            <div class="col-md-6 col-xs-6 text-center">{{Datos.comentarioComprador}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

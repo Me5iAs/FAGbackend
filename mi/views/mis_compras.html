@@ -1,0 +1,102 @@
+
+<style>
+  body{
+    background: url(../img/bg.png)
+  }
+  .contenido_tab {
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius: 0px 0px 5px 5px;
+    border-top:none
+  }
+  table{
+    font-size: 12px;
+  }
+  
+  .lista{
+    margin-bottom: 4px;
+    line-height: 35px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  
+</style>
+<div class="container">
+  <div class="row">
+    <div style="padding:10px" class="panel panel-default">
+      <div style="padding-right:15px" class="row"></div>
+      <form class="form-horizontal">         
+        <uib-tabset>
+          <uib-tab index="0" select="CargarPendientes()">
+            <uib-tab-heading><i class="fa fa-shopping-cart"></i>Mis  Pendientes      </uib-tab-heading>
+            <div class="contenido_tab">
+              <div ng-show="CargandoPendientes" style="text-align:center" class="cargando"><img src="img/cargar.gif"/></div>
+              <div ng-show="!CargandoPendientes" class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-6 col-xs-12 col-sm-12">Publicación                      </div>
+                      <div class="col-md-2 hidden-xs hidden-sm text-right">Precio</div>
+                      <div class="col-md-2 hidden-xs hidden-sm text-center">Compra</div>
+                      <div class="col-md-1 hidden-xs hidden-sm text-center">Vendedor</div>
+                      <div class="col-md-1 hidden-xs hidden-sm text-center">Calificar</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="container-fluid">
+                    <div ng-repeat="item in compras_pendientes" class="row lista">
+                      <div class="col-md-6 col-xs-12 col-sm-12">{{$index+1+(PagPendientes.Tamano*PagPendientes.Actual-PagPendientes.Tamano)}}. {{item.Titulo}}                    </div>
+                      <div class="col-md-2 col-xs-6 col-sm-6 text-right">{{item.Precio}}</div>
+                      <div class="col-md-2 col-xs-6 col-sm-6 text-center">{{item.FechaCompra}}</div>
+                      <div class="col-md-1 col-xs-6 col-sm-6 text-right"> <a href="#" ng-click="$event.preventDefault(); verInfoUsuario(item.IdVendedor)">{{item.Vendedor}}</a></div>
+                      <div class="col-md-1 col-xs-6 col-sm-6 text-center"><a href="#" ng-click="$event.preventDefault(); Calificar(item.IdVenta, item.Idpub)"><i class="fa fa-check-square-o"> </i>Calificar</a></div>
+                    </div>
+                  </div>
+                </div>
+                <div style="padding:0px" class="panel-footer text-center">
+                  <uib-pagination boundary-links="true" total-items="compras_pendientes_total.length" ng-model="PagPendientes.Actual" previous-text="‹" next-text="›" first-text="«" last-text="»" force-ellipses="true" max-size="5" items-per-page="PagPendientes.Tamano" ng-change="PagPendientes.Cambiar()" style="margin:10px 0px" class="pagination-sm"></uib-pagination>
+                </div>
+              </div><br/>
+              <h4 ng-show="!CargandoPendientes &amp;&amp; compras_pendientes.length==0">No tienes publicaciones abiertas.</h4>
+            </div>
+          </uib-tab>
+          <uib-tab index="1" select="CargarHistorial()">
+            <uib-tab-heading><i class="fa fa-history"></i>Mi Historial</uib-tab-heading>
+            <div class="contenido_tab">
+              <div ng-show="CargandoHistorial" style="text-align:center" class="cargando"><img src="img/cargar.gif"/></div>
+              <div ng-show="!CargandoHistorial" class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-6 col-xs-12 col-sm-12">Publicación                      </div>
+                      <div class="col-md-2 hidden-xs hidden-sm text-right">Precio</div>
+                      <div class="col-md-2 hidden-xs hidden-sm text-center">Compra</div>
+                      <div class="col-md-1 hidden-xs hidden-sm text-center">Vendedor</div>
+                      <div class="col-md-1 hidden-xs hidden-sm text-center">Calificación</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="container-fluid">
+                    <div ng-repeat="item in compras_Historial" class="row lista">
+                      <div class="col-md-6 col-xs-12 col-sm-12">{{$index+1+(PagHistorial.Tamano*PagHistorial.Actual-PagHistorial.Tamano)}}. {{item.Titulo}}                    </div>
+                      <div class="col-md-2 col-xs-6 col-sm-6 text-right">{{item.Precio}}</div>
+                      <div class="col-md-2 col-xs-6 col-sm-6 text-center">{{item.FechaCompra}}</div>
+                      <div class="col-md-1 col-xs-6 col-sm-6 text-right"> <a href="#" ng-click="$event.preventDefault(); verInfoUsuario(item.IdVendedor)">{{item.Vendedor}}</a></div>
+                      <div class="col-md-1 col-xs-6 col-sm-6 text-center"><a href="#" ng-click="$event.preventDefault(); verCalificacion(item.IdVenta)"><i class="fa fa-search"></i>ver</a></div>
+                    </div>
+                  </div>
+                </div>
+                <div style="padding:0px" class="panel-footer text-center">
+                  <uib-pagination boundary-links="true" total-items="compras_Historial_total.length" ng-model="PagHistorial.Actual" previous-text="‹" next-text="›" first-text="«" last-text="»" force-ellipses="true" max-size="5" items-per-page="PagHistorial.Tamano" ng-change="PagPendientes.Cambiar()" style="margin:10px 0px" class="pagination-sm"></uib-pagination>
+                </div>
+              </div><br/>
+              <h4 ng-show="!CargandoAbiertas &amp;&amp; publicaciones_activas.length==0">No tienes publicaciones abiertas.</h4>
+            </div>
+          </uib-tab>
+        </uib-tabset>
+      </form>
+    </div>
+  </div>
+</div>

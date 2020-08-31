@@ -1,0 +1,76 @@
+
+<style>
+  body{
+  background-image: url(img/bg.png)
+  }
+  
+  
+</style>
+<div ng-show="!MostrarPublicacion" style="position:absolute; width:100%; text-align:center; z-index:2"><img src="img/error.png" popover-is-open="true" style="margin-top:50px" uib-popover="Esta no es la publicación que estás buscando..." popover-trigger="mouseenter"/>
+  <div style="text-align:center"><img src="img/nave.png" style="max-width:100%; text-align:center; margin-right:20px;"/></div>
+</div><img src="img/fondo.jpg" ng-hide="MostrarPublicacion" width="100%" style="position:relative; top:-20px; height:100%"/>
+<div style="border-top: none;" ng-show="MostrarPublicacion" class="container-fluid">
+  <div class="row col-md-offset-1 col-md-10">
+    <div class="panel panel-default">
+      <div class="panel-heading">Publicación</div>
+      <div class="panel-body">
+        <form name="FrmRegistrar" class="form-horizontal">
+          <div class="col-md-10">
+            <h2>{{Publicacion.Titulo}}</h2>
+          </div>
+          <div style="text-align:center" class="col-md-2"><a ng-click="$event.preventDefault(); Vendido()" ng-show="MiPublicacion" class="btn btn-danger"> <i class="glyphicon glyphicon-remove"></i>Retirar</a><a ng-click="$event.preventDefault(); Comprar()" ng-hide="MiPublicacion" class="btn btn-primary btn-lg"> <i class="fa fa-shopping-cart"></i>Comprar!</a><span class="help-block text-center">{{Publicacion.Interesados}} interesado(s).</span></div>
+          <div class="col-md-12">
+            <p>Fecha de Publicacion : {{Publicacion.Fecha}}</p>
+          </div>
+          <div class="col-md-3">
+            <div class="list-group">
+              <p class="list-group-item"><i class="fa fa-money text-primary"></i><strong style="padding:5px">Precio:</strong><span style="font-size:16px; font-weight:bold" class="text-primary">{{Publicacion.Moneda}} {{Publicacion.Precio}}</span></p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="list-group">
+              <p class="list-group-item"><i class="fa fa-question-circle text-primary"></i><strong style="padding:5px">Estado:</strong><span style="font-size:16px; font-weight:bold" class="text-primary">{{Publicacion.Estado}}</span></p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="list-group">
+              <p class="list-group-item"><i class="fa fa-book text-primary"></i><strong style="padding:5px">Categoria:</strong><a href="/#/search/Cat={{Publicacion.IdCategoria}}&amp;Est=0&amp;Min=0&amp;Max=0&amp;Key=&amp;Ord=1&amp;pag=1" style="font-size:16px; font-weight:bold" class="text-primary">{{Publicacion.Categoria}} </a></p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="list-group">
+              <p class="list-group-item"><i class="fa fa-user text-primary"></i><strong style="padding:5px">Usuario:</strong><a href="#" style="font-size:16px; font-weight:bold" class="text-primary">{{Publicacion.Usuario}}</a></p>
+            </div>
+          </div>
+          <fieldset class="col-md-12">
+            <legend>Descripción</legend>
+            <p ng-bind-html="Publicacion.Descripcion"></p>
+          </fieldset>
+          <div class="col-md-12">
+            <uib-carousel active="active" interval="myInterval" no-wrap="false">
+              <uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id"><img ng-src="{{slide.image}}" style="margin:auto;"/>
+                <div class="carousel-caption">                       
+                  <p>Foto {{slide.id+1}}</p>
+                </div>
+              </uib-slide>
+            </uib-carousel>
+          </div>
+          <fieldset style="margin-top:20px" class="col-md-12">
+            <legend>Preguntas ({{Preguntas.length}})</legend>
+            <div ng-hide="MiPublicacion" class="input-group">
+              <input type="text" placeholder="pregunta" ng-model="pregunta" class="form-control"/><span class="input-group-btn">
+                <button type="button" ng-click="Preguntar()" class="btn btn-primary"> <i class="fa fa-question-circle"></i>Preguntar!</button></span>
+            </div><br/>
+            <div ng-repeat="item in Preguntas" ng-class="{'panel-success': item.Respuesta!='', 'panel-danger': item.Respuesta==''}" class="panel"> 
+              <div class="panel-heading">
+                 
+                # {{$index+1}} - <i class="fa fa-question-circle"></i>{{item.Pregunta}}<a ng-show="MiPublicacion &amp;&amp; item.Respuesta==&quot;&quot;" style="float:right; margin-left:10px" ng-click="Borrar(item.IdPregunta)" class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i><span class="hidden-xs">Borrar!</span></a><a ng-show="MiPublicacion &amp;&amp; item.Respuesta==&quot;&quot;" style="float:right" ng-click="Responder(item.IdPregunta, item.Pregunta)" class="btn btn-warning btn-xs"> <i class="fa fa-reply"></i><span class="hidden-xs">Responder!</span></a>
+              </div>
+              <div ng-show="item.Respuesta!=&quot;&quot;" class="panel-body"><i class="fa fa-registered"></i>{{item.Respuesta}}</div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

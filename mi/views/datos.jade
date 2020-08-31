@@ -1,0 +1,77 @@
+style.
+  body {
+    background-image: url(img/bg.png)
+  }
+  table{
+    font-size:14px !important;
+  }
+
+  .avatar {
+    box-shadow: 0px 0px 10px 5px #ccc;
+    border-radius: 10px;
+    margin-bottom: 30px;
+  }
+
+section
+  articule
+    .container
+      .row.col-md-8.col-md-offset-2
+        .panel.panel-default
+          .panel-heading
+            | Datos de la Cuenta    
+          .panel-body
+            .col-md-4.text-center
+              img.avatar(ng-src="http://graph.facebook.com/{{fId}}/picture?type=large")
+
+            .col-md-8
+              form.form-horizontal
+                .form-group
+                  label.col-md-3.col-xs-3.col-sm-3.control-label Usuario
+                  .col-md-9
+                    label.control-label(style='font-weight:normal')  {{Datos.Usuario}}
+                
+                .form-group
+                  label.col-md-3.col-xs-3.col-sm-3.control-label Nombre
+                  .col-md-9
+                    label.control-label(style='font-weight:normal')  {{Datos.Nombre}}
+
+                .form-group
+                  label.col-md-3.col-xs-3.col-sm-3.control-label Genero
+                  .col-md-9
+                    label.control-label(style='font-weight:normal')  {{Datos.Genero}}
+
+                .form-group
+                  label.col-md-3.col-xs-3.col-sm-3.control-label Email
+                  .col-md-9
+                    label.control-label(style='font-weight:normal')  {{Datos.Email}}
+
+                .form-group
+                  label.col-md-3.col-xs-3.col-sm-3.control-label Teléfono
+                  .col-md-9
+                    label.control-label(style='font-weight:normal')  {{Datos.Telefono}}
+                    span 
+                    a(href='#' ng-click='$event.preventDefault(); Actualizar("Telefono",Datos.Telefono)' style='font-size:0.8em; margin-left:5px') Modificar
+
+                .form-group
+                  label.col-md-3.col-xs-3.col-sm-3.control-label Dirección
+                  .col-md-9
+                    label.control-label(style='font-weight:normal')  {{Datos.Direccion}}
+                    span 
+                    a(href='#' ng-click='$event.preventDefault(); Actualizar("Dirección",Datos.Direccion)' style='font-size:0.8em; margin-left:5px') Modificar
+
+      .row.col-md-8.col-md-offset-2
+        .panel.panel-default
+          .panel-heading
+            | Reputación
+          .panel-body
+            nvd3(options='options', data='DataReputacion')
+            span Total calificaciones: {{Total}}
+            .progress              
+              .progress-bar.progress-bar-danger.progress-bar-striped.active(role='progressbar', aria-valuenow='{{rating.Negativo}}', aria-valuemin='0', aria-valuemax='100', style='width: {{rating.Negativo}}%;') {{rating.Negativo}}%
+              .progress-bar.progress-bar-warning.progress-bar-striped.active(role='progressbar', aria-valuenow='{{rating.Neutro}}', aria-valuemin='0', aria-valuemax='100', style='width: {{rating.Neutro}}%;') {{rating.Neutro}}%
+              .progress-bar.progress-bar-success.progress-bar-striped.active(role='progressbar', aria-valuenow='{{rating.Positivo}}', aria-valuemin='0', aria-valuemax='100', style='width: {{rating.Positivo}}%;') {{rating.Positivo}}% 
+            p.text-center
+              button.btn.btn-success(ng-click='VerDetalles()') 
+                i.glyphicon.glyphicon-star
+                | ver Detalle de Calificaciones
+

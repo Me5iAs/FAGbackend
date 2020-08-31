@@ -1,0 +1,13 @@
+.panel.panel-default
+  .panel-heading Responder
+    i.fa.fa-times(style='float:right; cursor:pointer' ng-click='Cancelar()')
+  .panel-body
+    form.form-horizontal(name='FrmLogin')
+      .form-group.has-feedback
+        .col-md-12
+          p {{Pregunta}}
+          input.form-control.input-md(ng-model='Respuesta', type='text', placeholder='Respuesta' required="")
+      .form-group
+        .col-md-6
+          button#button1id.btn.btn-primary(ng-disabled="!FrmLogin.$valid" ng-click='Registrar()') Responder!        
+          

@@ -1,0 +1,132 @@
+style.
+  body {
+    background:url(../img/bg.png)
+  }
+
+  .flecha_derecha {
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #ececec;    
+    display:inline-block;
+    position: absolute;
+    top: calc(50% - 10px);
+    
+  }
+
+  .comentario{    
+    background: #ececec; 
+    border-radius: 7px;     
+    display: inline-block;
+    padding-left: 10px;    
+    padding-right: 10px;
+    display:inline-block; 
+    max-width:calc(50% - 10px); 
+    vertical-align:top; 
+    min-height:38px;
+  }
+
+  .comentario table tr td{
+    padding: 10px 0px;
+    font-size: 13px;
+    text-align:justify;
+    
+  }
+
+  .Positivo {
+    font-size: 1.5em !important;
+    color: #419641;
+  }
+
+  .Neutral {
+    font-size: 1.5em !important;
+    color: #eb9316;
+  }
+
+  .Negativo {
+    font-size: 1.5em !important;
+    color: #c12e2a;
+  }
+
+  .infoUsuario {
+    display:inline-block; 
+    top:calc(50% - 19px); 
+    position: absolute; 
+    margin-left: 15px; 
+    min-height:38px; 
+    font-size:13px; 
+    color:#999
+  }
+
+  .avatar{
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px 0px #999;
+  }
+
+.container
+  .row
+    .panel.panel-default
+      .panel-heading
+        h4 Reputación como vendedor
+      .panel-body
+        p.text-center
+          img.avatar(ng-src="http://graph.facebook.com/{{Datos.FbId}}/picture?type=large" ng-show='Datos.FbId!=""')
+        p.text-center
+          span {{Datos.Usuario}} ({{Datos.Totales}})
+        .row
+          .col-md-8.col-md-offset-2
+            .btn-group.btn-group-justified(role="group" aria-label="...")
+              .btn-group(role="group")
+                button.btn.btn-primary(type="button" ng-click='CargarArray(0)') 
+                  i.fa.fa-star
+                  span.hidden-sm.hidden-xs Todas 
+                  span.badge {{Datos.Totales}}
+              .btn-group(role="group")
+                button.btn.btn-success(type="button" ng-click='CargarArray(1)') 
+                  i.fa.fa-plus-circle
+                  span.hidden-sm.hidden-xs Positivas 
+                  span.badge {{Datos.Positivos}}
+              .btn-group(role="group")
+                button.btn.btn-warning(type="button" ng-click='CargarArray(2)') 
+                  i.fa.fa-dot-circle-o
+                  span.hidden-sm.hidden-xs Neutrales 
+                  span.badge {{Datos.Neutrales}}
+              .btn-group(role="group")
+                button.btn.btn-danger(type="button" ng-click='CargarArray(3)') 
+                  i.fa.fa-minus-circle 
+                  span.hidden-sm.hidden-xs Negativas 
+                  span.badge {{Datos.Negativos}}
+            .progress(style='margin-top:10px')         
+              .progress-bar.progress-bar-danger.progress-bar-striped.active(role='progressbar', aria-valuenow='{{Datos.pNeg}}', aria-valuemin='0', aria-valuemax='100', style='width: {{Datos.pNeg}}%;') {{Datos.pNeg}}%
+              .progress-bar.progress-bar-warning.progress-bar-striped.active(role='progressbar', aria-valuenow='{{Datos.pNeu}}', aria-valuemin='0', aria-valuemax='100', style='width: {{Datos.pNeu}}%;') {{Datos.pNeu}}%
+              .progress-bar.progress-bar-success.progress-bar-striped.active(role='progressbar', aria-valuenow='{{Datos.pPos}}', aria-valuemin='0', aria-valuemax='100', style='width: {{Datos.pPos}}%;') {{Datos.pPos}}%  
+            
+
+        br
+        h4.text-center {{Datos.Actual}}
+        br
+        .col-md-10.col-md-offset-1(style='margin-bottom:15px' ng-repeat='item in Activos')
+          .row  
+            .comentario 
+              table
+                tr
+                  td
+                    i(class='{{item.Calificacion}} fa fa-plus-circle')
+                  td [{{item.Fecha}}] {{item.ComentarioCliente}}
+                    
+            .flecha_derecha
+            
+            .infoUsuario
+                div
+                  i.glyphicon.glyphicon-user 
+                  | {{item.Comprador}} ({{item.ComprasU}})
+                div
+                  i.glyphicon.glyphicon-shopping-cart
+                  | {{item.Titulo}} ({{item.Precio}})
+
+        
+      
+
+
+
+
+            

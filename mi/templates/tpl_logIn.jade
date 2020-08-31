@@ -1,0 +1,22 @@
+.panel.panel-default
+  .panel-heading Iniciar Sesión
+    i.fa.fa-times(style='float:right; cursor:pointer' ng-click='Cancelar()')
+  .panel-body
+    form.form-horizontal(name='FrmLogin')
+      .form-group.has-feedback
+        .col-md-12
+          input#textinput.form-control.input-md(ng-model='Usuario', type='text', placeholder='Usuario' required="")
+          i.glyphicon.glyphicon-user.form-control-feedback(style='color:#c3c3c3')
+      
+      .form-group.has-feedback
+        .col-md-12
+          input.form-control.input-md(ng-model='Clave' type='password', placeholder='Clave' required="")
+          i.glyphicon.glyphicon-lock.form-control-feedback(style='color:#c3c3c3')
+      
+      .form-group
+        .col-md-6
+          button#button1id.btn.btn-primary(ng-disabled="!FrmLogin.$valid" ng-click='Iniciar()') Iniciar Sesión!
+        .col-md-6
+          span.help-block
+            a(href="#" style='font-size:11px') ¿Olvidaste tu clave?
+          //- button#button2id.btn.btn-danger(ng-click='Cancelar()') Cancelar

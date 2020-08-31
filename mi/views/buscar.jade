@@ -1,0 +1,154 @@
+style.
+  body {
+    background-image: url(img/bg.png)
+  }
+
+  @media (max-width: 768px) {
+    .margen {
+      margin: 5px !important;
+    }
+  }
+  @media (min-width: 768px) {
+    .margen {
+      margin: 5px !important;
+    }
+  }
+  @media (min-width: 992px){
+    .margen {
+      margin: 0px 50px !important;
+    }
+  }
+  @media (min-width:  992px) {
+    .margen {
+      margin: 0px 50px !important;
+    }
+  }
+
+  p { margin:0px !important; }
+  
+  .Filtro{
+    background: #f4f4f4;
+    font-size: 12px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+  }
+  
+  dl {font-weight: bold;}
+  dt {font-weight:normal}
+  dt * {font-weight:normal}
+  em {font-style:normal; font-size:11px; color:#666}
+    
+  .titulo{
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .precio{
+    color: #900;
+    font-size: 16px;
+    font-weight: bold;
+    text-align:right;
+  }
+  
+  .imagen{
+    width: 90px;
+    max-height: 90px;
+    background: #f4f4f4;
+    display: block;
+    border-radius: 5px;
+    border: 1px solid #c
+  }
+  .imagen:hover{
+    box-shadow: 0px 0px 10px #c3c3c3;
+  }
+
+.container-fluid(ng-show='Resultado.length>0')
+  .row.margen
+    .col-md-2
+      a.btn.btn-default.btn-xs(href="#" ng-click='$event.preventDefault(); verFiltro=!verFiltro;' style='display:block; margin-bottom: 5px') Filtro
+
+      .col-md-12.Filtro(uib-collapse='verFiltro')
+        dl.bold Categorías
+          //- si se tiene una categoría seleccionada
+          dt(ng-show="Filtro.Cat!=0")
+            {{Categorias[0].Categoria}} 
+            em ({{Categorias[0].Cantidad}})
+            a(href="#/search/Cat={{0}}&Est={{Filtro.Est}}&Min={{Filtro.Min}}&Max={{Filtro.Max}}&Key={{Filtro.Key}}&Ord={{Filtro.Ord}}&Pag=1")
+              i.fa.fa-times
+
+          dt(ng-repeat="item in Categorias" ng-show="Filtro.Cat==0")
+            a(href="#/search/Cat={{item.Id}}&Est={{Filtro.Est}}&Min={{Filtro.Min}}&Max={{Filtro.Max}}&Key={{Filtro.Key}}&Ord={{Filtro.Ord}}&Pag=1") {{item.Categoria}} 
+            em ({{item.Cantidad}})
+        
+        dl.bold Estado
+          dt(ng-show="Filtro.Est!=0")
+            {{Estado[0].Estado}} 
+            em ({{Estado[0].Cantidad}})
+            a(href="#/search/Cat={{Filtro.Cat}}&Est=0&Min={{Filtro.Min}}&Max={{Filtro.Max}}&Key={{Filtro.Key}}&Ord={{Filtro.Ord}}&Pag=1")
+              i.fa.fa-times
+
+          dt(ng-repeat="item in Estado" ng-show="Filtro.Est==0")
+            a(href="#/search/Cat={{Filtro.Cat}}&Est={{item.Id}}&Min={{Filtro.Min}}&Max={{Filtro.Max}}&Key={{Filtro.Key}}&Ord={{Filtro.Ord}}&Pag=1") {{item.Estado}} 
+            em ({{item.Cantidad}})
+        
+        dl.bold Rango de Precios
+        dt(ng-show="Filtro.Min!=0 && Filtro.Max!=0")
+          {{Rango[0].Rango}} 
+          em ({{Rango[0].Cantidad}})
+          a(href="#/search/Cat={{Filtro.Cat}}&Est={{Filtro.Est}}&Min=0&Max=0&Key={{Filtro.Key}}&Ord={{Filtro.Ord}}&Pag=1")
+            i.fa.fa-times
+
+        dt(ng-repeat="item in Rango" ng-show="Filtro.Min==0 && Filtro.Max==0" )
+          a(href="#/search/Cat={{Filtro.Cat}}&Est={{Filtro.Est}}&Min={{item.Min}}&Max={{item.Max}}&Key={{Filtro.Key}}&Ord={{Filtro.Ord}}&Pag=1" ng-show='item.Cantidad!=0') {{item.Rango}} 
+          em(ng-show='item.Cantidad!=0') ({{item.Cantidad}})
+
+    .col-md-10
+      .col-md-11(style='background:#fff;border-radius:3px; margin-bottom:10px; padding:10px; border:1px solid #ddd')        
+        .col-md-6
+          span(ng-show="Filtro.Cat!=0") > {{Categorias[0].Categoria}} 
+          span(ng-show="Filtro.Est!=0") > {{Estado[0].Estado}} 
+          span(ng-show="Filtro.Min!=0 && Filtro.Max!=0") > {{Rango[0].Rango}} 
+          span > {{Filtro.Key}}
+        .col-md-6.text-right
+          | Artículos {{Resultado.length}} | Ordenar por: 
+          .btn-group(uib-dropdown='')
+            button.btn.btn-default.btn-xs(type='button', uib-dropdown-toggle='')
+              span(ng-show='Filtro.Ord==1') Menor Precio 
+              span(ng-show='Filtro.Ord==2') Mayor Precio 
+              span.caret
+            ul(uib-dropdown-menu='', role='menu', aria-labelledby='single-button')
+              li(role='menuitem')
+                a(href="#/search/Cat={{Filtro.Cat}}&Est={{Filtro.Est}}&Min={{Filtro.Min}}&Max={{Filtro.Max}}&Key={{Filtro.Key}}&Ord=1&Pag=1") Menor Precio
+              li(role='menuitem')
+                a(href="#/search/Cat={{Filtro.Cat}}&Est={{Filtro.Est}}&Min={{Filtro.Min}}&Max={{Filtro.Max}}&Key={{Filtro.Key}}&Ord=2&Pag=1") Mayor Precio
+            
+
+      .col-md-11(style='background:#fff;border-radius:5px; border:1px solid #ddd')
+        .row.col-md-12(ng-repeat='item in Resultado' style='border-bottom:1px solid #ddd; margin-left:0px; padding: 7px 0px')
+          .col-md-2.text-center.col-xs-6.col-sm-6
+            a.imagen(href='#/ver_pub/{{item.Id}}')
+              img(ng-src='img/publicaciones/{{item.Id}}/min/1' style='max-width:90px; max-height:90px;')
+          .col-md-8.hidden-xs.hidden-sm
+            a.titulo(href='#/ver_pub/{{item.Id}}') {{item.Titulo}}
+          .col-md-2.col-xs-6.col-sm-6
+            a.titulo.visible-xs.visible-sm(href='#/ver_pub/{{item.Id}}') {{item.Titulo}}
+            .precio {{item.Precio}}
+            p(style='font-size:14px; text-align:right') {{item.Estado}}
+
+#sinr.container-fluid(ng-show='Resultado.length==0 && Resultado!=undefined' style='margin:0px; padding:0px')
+  .row.col-md-10.col-md-offset-1(style='margin:0px; padding:0px')
+
+  div(style='position:absolute; width:100%; text-align:center; z-index:2')
+    img(src='img/error.png' id='avatar' style='margin-top:80px' uib-popover="Estos no son los productos que estás buscando..."  popover-is-open="true")
+    div(style='text-align:center')       
+  img(src='img/fondo.jpg' width="100%" style='position:relative; top:-20px; height:100%')
+  .row(style='margin: 0px; padding:0px; position: absolute; top: 390px;')
+    .col-lg-6.col-sm-10.col-lg-offset-3.col-sm-offset-1(ng-controller='homeCtrl')
+      form(ng-submit="Encontrar(criterio)")
+        .input-group
+          input#criterio.form-control(type='text', placeholder='prueba otra palabra' ng-model='criterio')
+          span.input-group-btn
+            button.btn.btn-primary(type='button' ng-click='Encontrar(criterio)') Buscar!

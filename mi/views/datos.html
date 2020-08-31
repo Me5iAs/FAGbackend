@@ -1,0 +1,86 @@
+
+<style>
+  body {
+    background-image: url(img/bg.png)
+  }
+  table{
+    font-size:14px !important;
+  }
+  
+  .avatar {
+    box-shadow: 0px 0px 10px 5px #ccc;
+    border-radius: 10px;
+    margin-bottom: 30px;
+  }
+  
+</style>
+<section>
+  <articule>
+    <div class="container">
+      <div class="row col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+          <div class="panel-heading">Datos de la Cuenta    </div>
+          <div class="panel-body">
+            <div class="col-md-4 text-center"><img ng-src="http://graph.facebook.com/{{fId}}/picture?type=large" class="avatar"/></div>
+            <div class="col-md-8">
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <label class="col-md-3 col-xs-3 col-sm-3 control-label">Usuario</label>
+                  <div class="col-md-9">
+                    <label style="font-weight:normal" class="control-label"> {{Datos.Usuario}}</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-3 col-xs-3 col-sm-3 control-label">Nombre</label>
+                  <div class="col-md-9">
+                    <label style="font-weight:normal" class="control-label"> {{Datos.Nombre}}</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-3 col-xs-3 col-sm-3 control-label">Genero</label>
+                  <div class="col-md-9">
+                    <label style="font-weight:normal" class="control-label"> {{Datos.Genero}}</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-3 col-xs-3 col-sm-3 control-label">Email</label>
+                  <div class="col-md-9">
+                    <label style="font-weight:normal" class="control-label"> {{Datos.Email}}</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-3 col-xs-3 col-sm-3 control-label">Teléfono</label>
+                  <div class="col-md-9">
+                    <label style="font-weight:normal" class="control-label"> {{Datos.Telefono}}</label><span> </span><a href="#" ng-click="$event.preventDefault(); Actualizar(&quot;Telefono&quot;,Datos.Telefono)" style="font-size:0.8em; margin-left:5px">Modificar</a>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-3 col-xs-3 col-sm-3 control-label">Dirección</label>
+                  <div class="col-md-9">
+                    <label style="font-weight:normal" class="control-label"> {{Datos.Direccion}}</label><span> </span><a href="#" ng-click="$event.preventDefault(); Actualizar(&quot;Dirección&quot;,Datos.Direccion)" style="font-size:0.8em; margin-left:5px">Modificar</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+          <div class="panel-heading">Reputación</div>
+          <div class="panel-body">
+            <nvd3 options="options" data="DataReputacion"></nvd3><span>Total calificaciones: {{Total}}</span>
+            <div class="progress">             
+              <div role="progressbar" aria-valuenow="{{rating.Negativo}}" aria-valuemin="0" aria-valuemax="100" style="width: {{rating.Negativo}}%;" class="progress-bar progress-bar-danger progress-bar-striped active">{{rating.Negativo}}%</div>
+              <div role="progressbar" aria-valuenow="{{rating.Neutro}}" aria-valuemin="0" aria-valuemax="100" style="width: {{rating.Neutro}}%;" class="progress-bar progress-bar-warning progress-bar-striped active">{{rating.Neutro}}%</div>
+              <div role="progressbar" aria-valuenow="{{rating.Positivo}}" aria-valuemin="0" aria-valuemax="100" style="width: {{rating.Positivo}}%;" class="progress-bar progress-bar-success progress-bar-striped active">{{rating.Positivo}}% </div>
+            </div>
+            <p class="text-center">
+              <button ng-click="VerDetalles()" class="btn btn-success"> <i class="glyphicon glyphicon-star"></i>ver Detalle de Calificaciones</button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </articule>
+</section>

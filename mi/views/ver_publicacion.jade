@@ -1,0 +1,107 @@
+style.
+  body{
+  background-image: url(img/bg.png)
+  }
+
+
+div(ng-show='!MostrarPublicacion' style='position:absolute; width:100%; text-align:center; z-index:2')
+  
+  img(src='img/error.png' popover-is-open="true" style='margin-top:50px' uib-popover="Esta no es la publicación que estás buscando..." popover-trigger="mouseenter")
+  div(style='text-align:center')
+    img(src='img/nave.png' style='max-width:100%; text-align:center; margin-right:20px;')
+img(src='img/fondo.jpg' ng-hide='MostrarPublicacion' width="100%" style='position:relative; top:-20px; height:100%')
+
+
+//- .panel.panel-default.panel-pub(style='border-top: none;' ng-show='MostrarPublicacion')
+//-   .panel-body.panelvender
+//-     form.form-horizontal
+.container-fluid(style='border-top: none;' ng-show='MostrarPublicacion')
+  .row.col-md-offset-1.col-md-10
+    .panel.panel-default
+      .panel-heading Publicación
+      .panel-body
+        form.form-horizontal(name='FrmRegistrar')
+          .col-md-10
+            h2 {{Publicacion.Titulo}}
+          .col-md-2(style='text-align:center')
+            a.btn.btn-danger(ng-click='$event.preventDefault(); Vendido()' ng-show='MiPublicacion') 
+              i.glyphicon.glyphicon-remove
+              | Retirar
+
+            a.btn.btn-primary.btn-lg(ng-click='$event.preventDefault(); Comprar()' ng-hide='MiPublicacion') 
+              i.fa.fa-shopping-cart
+              | Comprar!
+            span.help-block.text-center {{Publicacion.Interesados}} interesado(s).
+          .col-md-12
+            p Fecha de Publicacion : {{Publicacion.Fecha}}
+
+          .col-md-3
+            .list-group
+              p.list-group-item
+                i.fa.fa-money.text-primary
+                strong(style='padding:5px') Precio:
+                span.text-primary(style='font-size:16px; font-weight:bold') {{Publicacion.Moneda}} {{Publicacion.Precio}}
+          
+          .col-md-3
+            .list-group
+              p.list-group-item
+                i.fa.fa-question-circle.text-primary
+                strong(style='padding:5px') Estado:
+                span.text-primary(style='font-size:16px; font-weight:bold') {{Publicacion.Estado}}
+
+          .col-md-3
+            .list-group
+              p.list-group-item
+                i.fa.fa-book.text-primary
+                strong(style='padding:5px') Categoria:
+                a.text-primary(href="/#/search/Cat={{Publicacion.IdCategoria}}&Est=0&Min=0&Max=0&Key=&Ord=1&pag=1" style='font-size:16px; font-weight:bold') {{Publicacion.Categoria}} 
+          
+          .col-md-3
+            .list-group
+              p.list-group-item
+                i.fa.fa-user.text-primary
+                strong(style='padding:5px') Usuario:
+                a.text-primary(href="#" style='font-size:16px; font-weight:bold') {{Publicacion.Usuario}}
+
+          fieldset.col-md-12
+            legend Descripción
+            p(ng-bind-html="Publicacion.Descripcion")
+
+          //- div.col-md-12(style='max-height: 405px; margin-bottom:30px')
+          div.col-md-12
+            uib-carousel(active='active', interval='myInterval', no-wrap='false')
+              uib-slide(ng-repeat='slide in slides track by slide.id', index='slide.id')
+                img(ng-src='{{slide.image}}', style='margin:auto;')
+                .carousel-caption                        
+                  p Foto {{slide.id+1}}
+  
+          fieldset.col-md-12(style='margin-top:20px')
+            legend Preguntas ({{Preguntas.length}})
+            //- .input-group
+            .input-group(ng-hide='MiPublicacion')
+            
+              input.form-control(type='text', placeholder='pregunta' ng-model='pregunta')
+              span.input-group-btn
+                button.btn.btn-primary(type='button' ng-click='Preguntar()') 
+                  i.fa.fa-question-circle
+                  | Preguntar!
+
+            br
+            .panel(ng-repeat="item in Preguntas" ng-class="{'panel-success': item.Respuesta!='', 'panel-danger': item.Respuesta==''}") 
+              .panel-heading 
+                # {{$index+1}} - 
+                i.fa.fa-question-circle
+                | {{item.Pregunta}}
+                a.btn.btn-danger.btn-xs(ng-show='MiPublicacion && item.Respuesta==""' style='float:right; margin-left:10px' ng-click='Borrar(item.IdPregunta)') 
+                  i.fa.fa-trash
+                  span.hidden-xs Borrar!
+                a.btn.btn-warning.btn-xs(ng-show='MiPublicacion && item.Respuesta==""' style='float:right' ng-click='Responder(item.IdPregunta, item.Pregunta)') 
+                  i.fa.fa-reply
+                  span.hidden-xs Responder!
+              .panel-body(ng-show='item.Respuesta!=""')
+                i.fa.fa-registered
+                | {{item.Respuesta}}
+
+
+
+    

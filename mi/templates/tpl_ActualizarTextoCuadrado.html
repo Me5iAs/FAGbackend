@@ -1,0 +1,10 @@
+
+<div class="modal-header">Actividad<i style="float:right; cursor:pointer" ng-click="Cancelar()" class="fa fa-times"></i></div>
+<div class="modal-body"> 
+  <form>
+    <div class="input-group">
+      <input type="text" ng-model="texto" class="form-control"/><span class="input-group-btn">
+        <button type="submit" ng-disabled="texto==''" ng-click="Registrar()" class="btn btn-primary">Aceptar</button></span>
+    </div>
+  </form>
+</div>

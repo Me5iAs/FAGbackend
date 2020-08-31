@@ -1,0 +1,19 @@
+
+<div class="panel panel-default">
+  <div class="panel-heading">Responder<i style="float:right; cursor:pointer" ng-click="Cancelar()" class="fa fa-times"></i></div>
+  <div class="panel-body">
+    <form name="FrmLogin" class="form-horizontal">
+      <div class="form-group has-feedback">
+        <div class="col-md-12">
+          <p>{{Pregunta}}</p>
+          <input ng-model="Respuesta" type="text" placeholder="Respuesta" required="" class="form-control input-md"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-6">
+          <button id="button1id" ng-disabled="!FrmLogin.$valid" ng-click="Registrar()" class="btn btn-primary">Responder!        </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
